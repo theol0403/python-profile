@@ -4,6 +4,7 @@ from point import Point
 from path.piecewise import *
 import matplotlib.pyplot as plt
 
+plt.figure(dpi=70, figsize=(8, 8))
 plt.title("Path")
 
 new_hermite(CubicHermite, Point(0, 0, 0), Point(1, 1, 0)).plot("Cubic Hermite")
@@ -38,7 +39,12 @@ Piecewise.new_hermite(QuinticHermite, [
                       Point(0.5, 1, 0),
                       Point(1, 0, -np.pi/2)]).plot("Piecewise Quintic Hermite")
 
-# new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)]).plot("bezier")
+new_bezier([Point(0, 0),
+            Point(1, 0),
+            Point(0, 1),
+            Point(1, 1)]).plot("Cubic Bezier")
 
 plt.legend()
+plt.tight_layout()
 plt.show()
+print(plt.gcf().get_size_inches())
