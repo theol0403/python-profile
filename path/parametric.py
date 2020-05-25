@@ -1,6 +1,6 @@
 from path import Path
 from point import Point
-from numpy import np
+import numpy as np
 
 
 # a function is a one-dimensional calculation that maps x to y
