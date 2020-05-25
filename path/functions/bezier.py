@@ -1,7 +1,5 @@
 from ..parametric import Parametric
 from . import Function
-import numpy as np
-import itertools
 
 
 # a bezier is a funtion that maps a group of control pointer to a bezier basis
