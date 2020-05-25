@@ -11,7 +11,7 @@ class Bezier(Function):
 
     def calc(self, x):
         order = len(self.ctrls)
-        return sum(map(lambda emum: basis(order, enum[0], x)*enum[1], self.ctrls))
+        return sum(map(lambda enum: basis(order, enum[0], x)*enum[1], enumerate(self.ctrls)))
 
     def calc_d(self, x):
         order = len(self.ctrls)
