@@ -27,8 +27,16 @@ new_bezier([Point(1.0, 0.0),
             Point(0.0, 0.6),
             Point(0.0, 1.0)]).plot("Quintic Bezier")
 
-Piecewise.new_hermite(CubicHermite, [Point(
-    0, 0, np.pi/2), Point(0.5, 1, 0), Point(1, 0, -np.pi/2)]).plot("Piecewise Cubic Bezier")
+Piecewise.new_hermite(CubicHermite, [
+                      Point(0, 0, np.pi/2),
+                      Point(0.5, 1, 0),
+                      Point(1, 0, -np.pi/2)]).plot("Piecewise Cubic Hermite")
+
+
+Piecewise.new_hermite(QuinticHermite, [
+                      Point(0, 0, np.pi/2),
+                      Point(0.5, 1, 0),
+                      Point(1, 0, -np.pi/2)]).plot("Piecewise Quintic Hermite")
 
 # new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)]).plot("bezier")
 
