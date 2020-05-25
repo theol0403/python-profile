@@ -1,15 +1,17 @@
-from ..parametric import Function, Parametric
+from ..parametric import Parametric
+from . import Function
 import numpy as np
 
 
 # a hermite is a one dimensional function that maps a group of coefficients to a power of t
 class Hermite(Function):
     def calc(self, x):
-        return sum(map(lambda (power, coef): x**power * coef, enumerate(self.coeffs)))
+        return sum(map(lambda enum: x**enum[0] * enum[1], enumerate(self.coeffs)))
 
     def calc_d(self, x):
-        return sum(map(lambda (power, coef): x**(power - 1) * power
-                       * coef, enumerate(self.coeffs).next()))
+        it = enumerate(self.coeffs)
+        next(it)
+        return sum(map(lambda enum: x**(enum[0] - 1) * enum[0] * enum[1], it))
 
 
 class CubicHermite(Hermite):

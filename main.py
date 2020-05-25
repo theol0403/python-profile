@@ -1,7 +1,7 @@
 from path.functions.hermite import *
 from point import Point
 
-# import matplotlib as mpl
+import matplotlib.pyplot as plt
 
 path = new_hermite(CubicHermite, Point(0, 0, 0), Point(1, 1, 0))
 
