@@ -15,10 +15,8 @@ class Bezier(Function):
 
     def calc_d(self, x):
         order = len(self.ctrls)
-        it = iter(self.ctrls)
-        itertools.islice(it, order)
         return sum(map(lambda power: basis(order - 1, power, x) * power
-                       * self.ctrls[power + 1] - self.ctrls[power], it))
+                       * self.ctrls[power + 1] - self.ctrls[power], range(order - 1)))
 
 
 def basis(n, k, x):
@@ -30,3 +28,7 @@ def comb(n, k):
     for i in range(k):
         res = (res * (n - i)) / (i + 1)
     return res
+
+
+def new_bezier(ctrls):
+    return Parametric(Bezier([c.x for c in ctrls]), Bezier([c.y for c in ctrls]))
