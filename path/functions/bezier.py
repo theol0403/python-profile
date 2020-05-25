@@ -17,11 +17,8 @@ class Bezier(Function):
         order = len(self.ctrls)
         it = iter(self.ctrls)
         itertools.islice(it, order)
-
-        def fn(power):
-            q = self.ctrls[power + 1] - self.ctrls[power]
-            return basis(order - 1, power, x) * power * q
-        return sum(map(fn, it))
+        return sum(map(lambda power: basis(order - 1, power, x) * power
+                       * self.ctrls[power + 1] - self.ctrls[power], it))
 
 
 def basis(n, k, x):
