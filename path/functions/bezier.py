@@ -10,13 +10,13 @@ class Bezier(Function):
         self.ctrls = ctrls
 
     def calc(self, x):
-        order = len(self.ctrls)
+        order = len(self.ctrls)-1
         return sum(map(lambda enum: basis(order, enum[0], x)*enum[1], enumerate(self.ctrls)))
 
     def calc_d(self, x):
-        order = len(self.ctrls)
+        order = len(self.ctrls)-1
         return sum(map(lambda power: basis(order - 1, power, x) * power
-                       * self.ctrls[power + 1] - self.ctrls[power], range(order - 1)))
+                       * (self.ctrls[power + 1] - self.ctrls[power]), range(order)))
 
 
 def basis(n, k, x):
