@@ -1,6 +1,5 @@
 
 class Path:
-
     def calc(self, t):
         pass
 
