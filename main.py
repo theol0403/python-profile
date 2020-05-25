@@ -1,6 +1,7 @@
 from path.functions.hermite import *
 from path.functions.bezier import *
 from point import Point
+from path.piecewise import *
 import matplotlib.pyplot as plt
 
 plt.title("Path")
@@ -25,6 +26,9 @@ new_bezier([Point(1.0, 0.0),
             Point(1.0, 1.0),
             Point(0.0, 0.6),
             Point(0.0, 1.0)]).plot("Quintic Bezier")
+
+Piecewise.new_hermite(CubicHermite, [Point(
+    0, 0, np.pi/2), Point(0.5, 1, 0), Point(1, 0, -np.pi/2)]).plot("Piecewise Cubic Bezier")
 
 # new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)]).plot("bezier")
 
