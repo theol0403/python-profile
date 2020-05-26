@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from path.point import Point
 
 
-# plt.figure(dpi=70, figsize=(8, 8))
+plt.figure(dpi=70, figsize=(16, 8))
 plt.subplot(1, 2, 1)
 plt.title("Path")
 
@@ -20,6 +20,7 @@ plt.title("Angle")
 x = [x/152 for x in range(153)]
 y = [p.theta for p in arcs.interpolate(50)]
 plt.plot(x, y)
+plt.grid(True)
 
 plt.tight_layout()
 plt.show()
