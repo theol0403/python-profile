@@ -1,5 +1,4 @@
-from path.functions.hermite import *
-from path.functions.bezier import *
+from path.functions import *
 from point import Point
 from path.piecewise import *
 import matplotlib.pyplot as plt

@@ -1,9 +1,9 @@
 import itertools
 from path import Path
-from .functions.bezier import *
-from .functions.hermite import *
+from .functions import *
 
 
+# a piecewise contains an array of paths
 class Piecewise(Path):
     def __init__(self):
         self.arr = []
@@ -11,6 +11,7 @@ class Piecewise(Path):
     def interpolate(self, steps):
         return sum((p.interpolate(steps) for p in self.arr), start=[])
 
+    # create a piecewise hermite path from a list of points
     def new_hermite(hermite, points):
         path = Piecewise()
         it = enumerate(points)
@@ -20,6 +21,7 @@ class Piecewise(Path):
             path.arr.append(new_hermite(hermite, p, points[i+1]))
         return path
 
+    # create a piecewise bezier path from a 2 dimensional list of points
     def new_bezier(segments):
         path = Piecewise()
         for controls in segments:
