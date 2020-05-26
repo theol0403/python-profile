@@ -1,6 +1,6 @@
 import numpy as np
 from path import Path
-from point import Point
+from .point import Point
 
 
 class Arc(Path):
