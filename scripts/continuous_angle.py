@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from path.point import Point
 
 
-plt.figure(dpi=70, figsize=(16, 8))
+plt.figure(dpi=70, figsize=(16, 8), num='Continuous Angle')
 plt.subplot(1, 2, 1)
 plt.title("Path")
 
