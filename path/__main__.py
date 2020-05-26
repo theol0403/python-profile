@@ -48,4 +48,3 @@ new_bezier([Point(0, 0),
 plt.legend()
 plt.tight_layout()
 plt.show()
-print(plt.gcf().get_size_inches())

@@ -1,6 +1,7 @@
 import numpy as np
 from path import Path
 from .point import Point
+from .piecewise import Piecewise
 
 
 class Arc(Path):
@@ -25,14 +26,14 @@ class Arc(Path):
         return d/self.s
 
     def calc(self, t):
-        x, y = 0
+        x, y = 0, 0
         if np.isinf(self.r):
             y = self.s * t
         else:
             x = self.r * np.cos(t * self.theta) - self.r
             y = self.r * np.sin(t * self.theta)
 
-        theta = self.rotate - np.PI/2.0
+        theta = self.rotate - np.pi/2.0
 
         x_r = x * np.cos(theta) - y * np.sin(theta)
         y_r = y * np.cos(theta) + x * np.sin(theta)
@@ -41,3 +42,13 @@ class Arc(Path):
         y_r += self.origin.y
 
         return Point(x_r, y_r, self.rotate + self.theta * t)
+
+
+def fit_arcs(path, num):
+    arcs = Piecewise()
+    start = path.calc(0)
+    for i in range(num):
+        end = path.calc(1.0/num*(i+1))
+        arcs.arr.append(Arc(start, end))
+        start = end
+    return arcs
