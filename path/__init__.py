@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 
 
+# a path returns a point containing x,y as a function ot t
 class Path:
     def calc(self, t):
         pass

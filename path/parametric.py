@@ -1,5 +1,5 @@
 from path import Path
-from point import Point
+from .point import Point
 import numpy as np
 
 
