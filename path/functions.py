@@ -24,7 +24,7 @@ class Bezier(Function):
 
     def calc_d(self, x):
         order = len(self.ctrls)-1
-        return sum(map(lambda power: basis(order - 1, power, x) * power
+        return sum(map(lambda power: basis(order - 1, power, x) * order
                        * (self.ctrls[power + 1] - self.ctrls[power]), range(order)))
 
 

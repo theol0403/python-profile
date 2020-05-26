@@ -13,7 +13,7 @@ class Arc(Path):
             self.r = np.Infinity
             self.s = c
         else:
-            self.r = c/(2.0*np.sin(self.theta/2.0))
+            self.r = c / (2.0 * np.sin(self.theta / 2.0))
             self.s = self.r * self.theta
 
         self.rotate = start.angle_to(end) - self.theta / 2.0
@@ -48,7 +48,7 @@ def fit_arcs(path, num):
     arcs = Piecewise()
     start = path.calc(0)
     for i in range(num):
-        end = path.calc(1.0/num*(i+1))
+        end = path.calc((1.0/num)*(i+1))
         arcs.arr.append(Arc(start, end))
         start = end
     return arcs
