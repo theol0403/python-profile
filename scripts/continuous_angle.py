@@ -3,6 +3,7 @@ from path.functions import *
 import matplotlib.pyplot as plt
 from path.point import Point
 
+# shows how the arc fitting does not produce continuous angle
 
 plt.figure(dpi=70, figsize=(16, 8), num='Continuous Angle')
 plt.subplot(1, 2, 1)
@@ -17,8 +18,8 @@ arcs.plot("")
 plt.subplot(1, 2, 2)
 plt.title("Angle")
 
-x = [x/152 for x in range(153)]
-y = [p.theta for p in arcs.interpolate(50)]
+y = [p.theta for p in arcs.interpolate(100)]
+x = [x/(len(y)-1) for x in range(len(y))]
 plt.plot(x, y)
 plt.grid(True)
 
