@@ -30,15 +30,19 @@ class Bot:
 
         #edge cases
         if left_vel == right_vel:
+            #Use large number instead to preven NaN?
             r = np.Infinity
         elif left_vel == -right_vel:
             r = 0
+            ang_vel = (right_vel - left_vel)/self.wheel_track
         elif left_vel == 0 or right_vel == 0:
             r = self.wheel_track/2
+            ang_vel = (right_vel - left_vel)/self.wheel_track
         else:
             r = (self.wheel_track/2)*((left_vel + right_vel)/(right_vel - left_vel))
             ang_vel = (right_vel - left_vel)/self.wheel_track
 
+        
 
 
         icc = Point(self.orientation.x - r * math.sin(self.orientation.theta), self.orientation.y + r * math.cos(self.orientation.theta))
@@ -48,3 +52,12 @@ class Bot:
         new_theta = self.orientation.theta + ang_vel * dt 
 
         self.orientation = Point(new_x, new_y, new_theta)
+        return self.orientation
+
+    def simulate(self, vels, dt):
+        orientations = []
+        for i in range(len(vels[0])):
+            orientations.append(self.move(vels[0][i], vels[1][i], dt))
+        
+        return orientations
+        
