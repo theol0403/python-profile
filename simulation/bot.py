@@ -6,13 +6,16 @@ class Bot:
         self.wheel_track = wheel_track
         self.orientation = orientation
 
-    def default15(self):
+    @staticmethod
+    def default15():
         return Bot(14, Point.origin())
     
-    def default18(self):
+    @staticmethod
+    def default18():
         return Bot(17, Point.origin())
 
-    def default24(self):
+    @staticmethod
+    def default24():
         return Bot(23, Point.origin())
 
     #http://www.cs.columbia.edu/~allen/F15/NOTES/icckinematics.pdf

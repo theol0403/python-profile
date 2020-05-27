@@ -6,7 +6,8 @@ class Point:
         self.x = x
         self.y = y
         self.theta = theta
-
+    
+    @staticmethod
     def origin():
         return Point(0, 0, 0)
 
@@ -18,8 +19,9 @@ class Point:
         return np.arctan2(diff.y, diff.x)
 
     #used for simulation
-    def from_array(self, arr):
-        return Point(arr[0], arr[1], arr[2]) 
+    @staticmethod
+    def from_array(arr):
+        return Point(arr[0], arr[1], arr[2])
 
     #used for simulation
     def to_np_array(self, arr):
