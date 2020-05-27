@@ -20,13 +20,19 @@ class Bot:
     @staticmethod
     def default24():
         return Bot(23, Point.origin(), 1, 4)
+    
+    def rpm_to_linear_vel(self, rpm):
+        return rpm * self.gearing * self.wheel_diam * math.pi
+
+    def linear_vel_to_rpm(self, linear_vel):
+        return linear_vel / (self.gearing * self.wheel_diam * math.pi)
 
     #http://www.cs.columbia.edu/~allen/F15/NOTES/icckinematics.pdf
     #errors if wheeltrack == 0
     def move(self, left_rpm, right_rpm, dt):
         
-        left_vel = left_rpm * self.gearing * self.wheel_diam * math.pi
-        right_vel = right_rpm * self.gearing * self.wheel_diam * math.pi
+        left_vel = self.rpm_to_linear_vel(left_rpm)
+        right_vel = self.rpm_to_linear_vel(right_rpm)
 
         # signed distance from the instantaneous center of curvature (ICC)
         r = 0
