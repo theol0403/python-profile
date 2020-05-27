@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import math
 
-bot = Bot(15, Point(0, 0, math.pi/4))
+bot = Bot(15, Point(0, 0, math.pi/4), 1, 4)
 
 print(bot.orientation)
 
@@ -13,7 +13,7 @@ print(bot.orientation)
 
 bot2 = Bot.default15()
 start = bot2.orientation
-vels = np.array(((10, 10.995, 1.0001, 10.995, 10, 10.995, 1.0001), (10.0001, -10.995, 1, -10.995, 10.0001, -10.995, 1)))
+vels = np.array(((10, 10.995, 1, 10.995, 10, 10.995, 1), (10, -10.995, 1, -10.995, 10, -10.995, 1)))
 
 orientations = bot2.simulate(vels, 1)
 x = np.zeros(len(orientations) + 1)

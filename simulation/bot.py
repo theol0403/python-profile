@@ -3,25 +3,31 @@ import math
 import numpy as np
 
 class Bot:
-    def __init__(self, wheel_track, orientation):
+    def __init__(self, wheel_track, orientation, gearing, wheel_diam):
         self.wheel_track = wheel_track
         self.orientation = orientation
+        self.gearing = gearing
+        self.wheel_diam = wheel_diam
 
     @staticmethod
     def default15():
-        return Bot(14, Point.origin())
+        return Bot(14, Point.origin(), 1, 4)
     
     @staticmethod
     def default18():
-        return Bot(17, Point.origin())
+        return Bot(17, Point.origin(), 1, 4)
 
     @staticmethod
     def default24():
-        return Bot(23, Point.origin())
+        return Bot(23, Point.origin(), 1, 4)
 
     #http://www.cs.columbia.edu/~allen/F15/NOTES/icckinematics.pdf
     #errors if wheeltrack == 0
-    def move(self, left_vel, right_vel, dt):
+    def move(self, left_rpm, right_rpm, dt):
+        
+        left_vel = left_rpm * self.gearing * self.wheel_diam * math.pi
+        right_vel = right_rpm * self.gearing * self.wheel_diam * math.pi
+
         # signed distance from the instantaneous center of curvature (ICC)
         r = 0
 
@@ -30,8 +36,11 @@ class Bot:
 
         #edge cases
         if left_vel == right_vel:
-            #Use large number instead to preven NaN?
-            r = np.Infinity
+            new_x = self.orientation.x + math.cos(self.orientation.theta) * left_vel
+            new_y = self.orientation.y + math.sin(self.orientation.theta) * left_vel
+
+            self.orientation = Point(new_x, new_y, self.orientation.theta)
+            return self.orientation
         elif left_vel == -right_vel:
             r = 0
             ang_vel = (right_vel - left_vel)/self.wheel_track
@@ -41,9 +50,6 @@ class Bot:
         else:
             r = (self.wheel_track/2)*((left_vel + right_vel)/(right_vel - left_vel))
             ang_vel = (right_vel - left_vel)/self.wheel_track
-
-        
-
 
         icc = Point(self.orientation.x - r * math.sin(self.orientation.theta), self.orientation.y + r * math.cos(self.orientation.theta))
 
