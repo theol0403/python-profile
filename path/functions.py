@@ -38,9 +38,8 @@ def comb(n, k):
         res = (res * (n - i)) / (i + 1)
     return res
 
+
 # create a new parametric bezier using n control points
-
-
 def new_bezier(ctrls):
     return Parametric(Bezier([c.x for c in ctrls]), Bezier([c.y for c in ctrls]))
 
