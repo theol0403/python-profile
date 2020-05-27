@@ -17,6 +17,14 @@ class Point:
         diff = other - self
         return np.arctan2(diff.y, diff.x)
 
+    #used for simulation
+    def from_array(self, arr):
+        return Point(arr[0], arr[1], arr[2]) 
+
+    #used for simulation
+    def to_np_array(self, arr):
+        return np.array((self.x, self.y, self.theta))
+
     def __add__(self, other):
         return Point(self.x + other.x,
                      self.y + other.y, self.theta + other.theta)
