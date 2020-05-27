@@ -46,3 +46,6 @@ class Point:
     def __eq__(self, other):
         return self.x == other.x \
             and self.y == other.y and self.theta == other.theta
+
+    def __str__(self):
+        return "("+str(self.x) + "," + str(self.y) + "," + str(self.theta) + ")"
