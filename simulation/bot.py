@@ -15,11 +15,17 @@ class Bot:
         return Bot(23, Point.origin())
 
     #http://www.cs.columbia.edu/~allen/F15/NOTES/icckinematics.pdf
-    def move(left_vel, right_vel):
+    def move(left_vel, right_vel, dt):
 
         # signed distance from the instantaneous center of curvature (ICC)
         r = (self.wheel_track/2)*((left_vel + right_vel)/(right_vel - left_vel))
         # angular velocity
         ang_vel = (right_vel - left_vel)/self.wheel_track
 
-        self.orientation = self.orientation
+        icc = Point(self.orientation.x - r * math.sin(self.orientation.theta), self.orientation.y + r * math.cos(self.orientation.theta))
+
+        new_x = math.cos(ang_vel * dt) * (self.orientation.x - icc.x) - math.sin(ang_vel * dt) * (self.orientation.y - icc.y) + icc.x
+        new_y = math.sin(ang_vel * dt) * (self.orientation.x - icc.x) + math.cos(ang_vel * dt) * (self.orientation.y - icc.y) + icc.y
+        new_theta = self.orientation.theta + ang_vel * dt 
+
+        self.orientation = Point(new_x, new_y, new_theta)
