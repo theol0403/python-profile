@@ -22,10 +22,10 @@ class Bot:
         return Bot(23, Point.origin(), 1, 4)
     
     def rpm_to_linear_vel(self, rpm):
-        return rpm * self.gearing * self.wheel_diam * math.pi
+        return (rpm/60.0) * self.gearing * self.wheel_diam * math.pi
 
     def linear_vel_to_rpm(self, linear_vel):
-        return linear_vel / (self.gearing * self.wheel_diam * math.pi)
+        return (linear_vel*60) / (self.gearing * self.wheel_diam * math.pi)
 
     #http://www.cs.columbia.edu/~allen/F15/NOTES/icckinematics.pdf
     #errors if wheeltrack == 0
