@@ -33,7 +33,10 @@ class Trapezoidal:
             vel = self.top_vel
         else:
             # we are decelerating
-            vel = np.sqrt(self.top_vel**2 - 2 * self.accel *
-                          (d - self.a_dist - self.c_dist))
+            v = self.top_vel**2 - 2 * self.accel * \
+                (d - self.a_dist - self.c_dist)
+            if v < 0:
+                v = 0
+            vel = np.sqrt(v)
 
         return vel
