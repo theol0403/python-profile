@@ -1,4 +1,5 @@
 from simulation.bot import *
+from generator.trapezoidal import Trapezoidal
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import math
@@ -13,9 +14,19 @@ print(bot.orientation)
 
 bot2 = Bot.default15()
 start = bot2.orientation
-vels = np.array(((10, 10.995, 1, 10.995, 10, 10.995, 1), (10, -10.995, 1, -10.995, 10, -10.995, 1)))
 
-orientations = bot2.simulate(vels, 1)
+profile = Trapezoidal(1, 2, 10)
+vels = [[],[]]
+dt = 0.001
+dist = 0.0000001
+while dist <= profile.length:
+    vel = profile.calc_at_d(dist)
+    vels[0].append(vel)
+    vels[1].append(vel)
+    dist += vel * dt
+
+
+orientations = bot2.simulate(vels, dt)
 x = np.zeros(len(orientations) + 1)
 y = np.zeros(len(orientations) + 1)
 thetas = np.zeros(len(orientations) + 1)
