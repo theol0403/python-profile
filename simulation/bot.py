@@ -29,11 +29,8 @@ class Bot:
 
     #http://www.cs.columbia.edu/~allen/F15/NOTES/icckinematics.pdf
     #errors if wheeltrack == 0
-    def move(self, left_mps, right_mps, dt):
+    def move(self, left_vel, right_vel, dt):
         
-        left_vel = left_mps
-        right_vel = right_mps
-
         # signed distance from the instantaneous center of curvature (ICC)
         r = 0
 
