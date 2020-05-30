@@ -31,9 +31,8 @@ class Bot:
     #errors if wheeltrack == 0
     def move(self, left_mps, right_mps, dt):
         
-        #convert from m/s to m/dt
-        left_vel = left_mps * dt
-        right_vel = right_mps * dt
+        left_vel = left_mps
+        right_vel = right_mps
 
         # signed distance from the instantaneous center of curvature (ICC)
         r = 0
@@ -43,8 +42,8 @@ class Bot:
 
         #edge cases
         if left_vel == right_vel:
-            new_x = self.orientation.x + math.cos(self.orientation.theta) * left_vel
-            new_y = self.orientation.y + math.sin(self.orientation.theta) * left_vel
+            new_x = self.orientation.x + math.cos(self.orientation.theta) * left_vel * dt
+            new_y = self.orientation.y + math.sin(self.orientation.theta) * left_vel * dt
 
             self.orientation = Point(new_x, new_y, self.orientation.theta)
             return self.orientation
