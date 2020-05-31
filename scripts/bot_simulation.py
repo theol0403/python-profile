@@ -1,4 +1,4 @@
-from simulation.bot import *
+from generator.bot import *
 from generator.trapezoidal import Trapezoidal, TrapezoidalConstraints
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
