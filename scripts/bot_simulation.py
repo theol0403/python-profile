@@ -16,7 +16,7 @@ bot2 = Bot.default15()
 start = bot2.pose
 
 profile = Trapezoidal(1, 2, 10)
-dt = 0.01
+dt = 0.1
 vels = []
 dist = 0
 vel = profile.v_at_t(dt)
@@ -41,5 +41,5 @@ for i in range(len(orientations)):
     y[i + 1] = orientations[i].y
     thetas[i + 1] = orientations[i].theta
 
-plt.scatter(x, y)
+plt.scatter(x, y, marker=".")
 plt.show()
