@@ -1,12 +1,11 @@
-from generator.trapezoidal import DistanceTrapezoidal
+from generator.trapezoidal import Trapezoidal
 import matplotlib.pyplot as plt
 import numpy as np
 
+profile = Trapezoidal(1, 2, 10)
 
-profile = DistanceTrapezoidal(1, 2, 10)
-
-x = [d / 10 for d in range(101)]
-y = [profile.calc_at_d(d) for d in x]
+x = np.linspace(0, profile.length, 101)
+y = [profile.v_at_d(d) for d in x]
 
 plt.subplot(1, 2, 1)
 plt.plot(x, y)
@@ -15,16 +14,14 @@ plt.grid()
 
 vels = []
 dt = 0.01
-dist = 0.0000001
+dist = profile.v_at_t(dt)
 while dist <= profile.length:
-    vel = profile.calc_at_d(dist)
+    vel = profile.v_at_d(dist)
     vels.append(vel)
     dist += vel * dt
 
-time = len(vels) * dt
-
 plt.subplot(1, 2, 2)
-plt.plot(np.linspace(0, time, len(vels)), vels)
+plt.plot(np.linspace(0, profile.time, len(vels)), vels)
 plt.title("Vel vs Time")
 plt.grid()
 
