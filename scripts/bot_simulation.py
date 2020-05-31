@@ -1,21 +1,18 @@
 from simulation.bot import *
-from generator.trapezoidal import Trapezoidal
+from generator.trapezoidal import Trapezoidal, TrapezoidalConstraints
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import math
 
-bot = Bot(15, Point(0, 0, math.pi / 4), 1, 4)
-
+bot = Bot(track=15, pose=Point(0, 0, math.pi / 4), max_vel=2)
 print(bot.pose)
-
 bot.move(2, 2.0001, 1)
-
 print(bot.pose)
 
 bot2 = Bot.default15()
 start = bot2.pose
 
-constraints = TrapezoidalConstraints(max_vel=2, max_accel=1)
+constraints = TrapezoidalConstraints(max_vel=bot.max_vel, max_accel=1)
 profile = Trapezoidal(constraints, 10)
 
 dt = 0.1
