@@ -14,7 +14,7 @@ plt.grid()
 
 vels = []
 dt = 0.01
-dist = profile.v_at_t(dt)
+dist = profile.v_at_t(dt) * dt
 while dist <= profile.length:
     vel = profile.v_at_d(dist)
     vels.append(vel)
