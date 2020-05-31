@@ -22,6 +22,9 @@ while dist <= profile.length:
     vel = profile.v_at_d(dist)
 vels.append(vel)
 
+final_dist = np.sum(np.array(vels) * dt)
+print(f"Final distance: {final_dist}")
+
 plt.subplot(1, 2, 2)
 plt.plot(np.linspace(0, profile.time, len(vels)), vels)
 plt.title("Vel vs Time")
