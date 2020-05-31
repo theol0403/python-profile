@@ -14,14 +14,13 @@ plt.title("Vel vs Distance")
 plt.grid()
 
 dt = 0.01
-vels = []
-dist = 0
-vel = profile.v_at_t(dt)
+vels = [profile.v_at_t(dt)]
+dist = vels[0] * dt
 while dist <= profile.length:
+    vel = profile.v_at_d(dist)
     vels.append(vel)
     dist += vel * dt
-    vel = profile.v_at_d(dist)
-vels.append(vel)
+vels.append(0)
 
 final_dist = np.sum(np.array(vels) * dt)
 print(f"Final distance: {final_dist}")
