@@ -5,7 +5,7 @@ from path.point import Point
 
 # shows how the arc fitting does not produce continuous angle
 
-plt.figure(dpi=70, figsize=(16, 8), num='Continuous Angle')
+plt.figure(dpi=70, figsize=(16, 8), num="Continuous Angle")
 plt.subplot(1, 2, 1)
 plt.title("Path")
 
@@ -19,7 +19,7 @@ plt.subplot(1, 2, 2)
 plt.title("Angle")
 
 y = [p.theta for p in arcs.interpolate(100)]
-x = [x/(len(y)-1) for x in range(len(y))]
+x = [x / (len(y) - 1) for x in range(len(y))]
 plt.plot(x, y)
 plt.grid(True)
 

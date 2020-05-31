@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from path.point import Point
 
 # demonstrates arc interpolation
-plt.figure(dpi=70, figsize=(12, 12), num='Arc Interpolation')
+plt.figure(dpi=70, figsize=(12, 12), num="Arc Interpolation")
 
 path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
 

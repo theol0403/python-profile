@@ -14,5 +14,5 @@ class Path:
         x = [p.x for p in points]
         y = [p.y for p in points]
         plt.grid(True)
-        plt.axis('equal')
+        plt.axis("equal")
         plt.plot(x, y, label=title)

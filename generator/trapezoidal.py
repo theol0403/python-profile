@@ -8,12 +8,12 @@ class Trapezoidal:
         self.length = length
 
         # the distance it takes to accelerate from 0 to full vel
-        a_dist = (vel**2)/(2*accel)
+        a_dist = (vel ** 2) / (2 * accel)
         # the cruising at max vel distance
         c_dist = length - a_dist * 2
         # if cruise is negative, acceleration is too long and this is a triangular profile
         if c_dist < 0:
-            a_dist += c_dist/2
+            a_dist += c_dist / 2
             c_dist = 0
 
         self.a_dist = a_dist
@@ -33,8 +33,7 @@ class Trapezoidal:
             vel = self.top_vel
         else:
             # we are decelerating
-            v = self.top_vel**2 - 2 * self.accel * \
-                (d - self.a_dist - self.c_dist)
+            v = self.top_vel ** 2 - 2 * self.accel * (d - self.a_dist - self.c_dist)
             if v < 0:
                 v = 0
             vel = np.sqrt(v)

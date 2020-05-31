@@ -16,9 +16,9 @@ class Piecewise(Path):
         path = Piecewise()
         it = enumerate(points)
         # there is one less hermite than points
-        it = itertools.islice(it, len(points)-1)
+        it = itertools.islice(it, len(points) - 1)
         for i, p in it:
-            path.arr.append(new_hermite(hermite, p, points[i+1]))
+            path.arr.append(new_hermite(hermite, p, points[i + 1]))
         return path
 
     # create a piecewise bezier path from a 2 dimensional list of points

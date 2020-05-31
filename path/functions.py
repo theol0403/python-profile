@@ -19,17 +19,25 @@ class Bezier(Function):
         self.ctrls = ctrls
 
     def calc(self, x):
-        order = len(self.ctrls)-1
-        return sum(map(lambda enum: basis(order, enum[0], x)*enum[1], enumerate(self.ctrls)))
+        order = len(self.ctrls) - 1
+        return sum(
+            map(lambda enum: basis(order, enum[0], x) * enum[1], enumerate(self.ctrls))
+        )
 
     def calc_d(self, x):
-        order = len(self.ctrls)-1
-        return sum(map(lambda power: basis(order - 1, power, x) * order
-                       * (self.ctrls[power + 1] - self.ctrls[power]), range(order)))
+        order = len(self.ctrls) - 1
+        return sum(
+            map(
+                lambda power: basis(order - 1, power, x)
+                * order
+                * (self.ctrls[power + 1] - self.ctrls[power]),
+                range(order),
+            )
+        )
 
 
 def basis(n, k, x):
-    return comb(n, k) * (1.0-x) ** (n-k) * x ** k
+    return comb(n, k) * (1.0 - x) ** (n - k) * x ** k
 
 
 def comb(n, k):
@@ -47,12 +55,12 @@ def new_bezier(ctrls):
 # a hermite is a one dimensional function that maps a group of coefficients to a power of t
 class Hermite(Function):
     def calc(self, x):
-        return sum(map(lambda enum: x**enum[0] * enum[1], enumerate(self.coeffs)))
+        return sum(map(lambda enum: x ** enum[0] * enum[1], enumerate(self.coeffs)))
 
     def calc_d(self, x):
         it = enumerate(self.coeffs)
         next(it)
-        return sum(map(lambda enum: x**(enum[0] - 1) * enum[0] * enum[1], it))
+        return sum(map(lambda enum: x ** (enum[0] - 1) * enum[0] * enum[1], it))
 
 
 class CubicHermite(Hermite):
@@ -85,8 +93,10 @@ def new_hermite(hermite, start, end):
     x_end_t = np.cos(end.theta)
     y_end_t = np.sin(end.theta)
 
-    return Parametric(hermite(start.x, x_start_t, end.x, x_end_t),
-                      hermite(start.y, y_start_t, end.y, y_end_t))
+    return Parametric(
+        hermite(start.x, x_start_t, end.x, x_end_t),
+        hermite(start.y, y_start_t, end.y, y_end_t),
+    )
 
 
 # create a new parametric hermite with tangent stretch
@@ -97,5 +107,7 @@ def new_hermite_t(hermite, start, end, stretch):
     x_end_t = np.cos(end.theta)
     y_end_t = np.sin(end.theta)
 
-    return Parametric(hermite(start.x, x_start_t, end.x, x_end_t),
-                      hermite(start.y, y_start_t, end.y, y_end_t))
+    return Parametric(
+        hermite(start.x, x_start_t, end.x, x_end_t),
+        hermite(start.y, y_start_t, end.y, y_end_t),
+    )

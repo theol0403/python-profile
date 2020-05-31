@@ -6,7 +6,7 @@ class Point:
         self.x = x
         self.y = y
         self.theta = theta
-    
+
     @staticmethod
     def origin():
         return Point(0, 0, 0)
@@ -18,34 +18,29 @@ class Point:
         diff = other - self
         return np.arctan2(diff.y, diff.x)
 
-    #used for simulation
+    # used for simulation
     @staticmethod
     def from_array(arr):
         return Point(arr[0], arr[1], arr[2])
 
-    #used for simulation
+    # used for simulation
     def to_np_array(self, arr):
         return np.array((self.x, self.y, self.theta))
 
     def __add__(self, other):
-        return Point(self.x + other.x,
-                     self.y + other.y, self.theta + other.theta)
+        return Point(self.x + other.x, self.y + other.y, self.theta + other.theta)
 
     def __sub__(self, other):
-        return Point(self.x - other.x,
-                     self.y - other.y, self.theta - other.theta)
+        return Point(self.x - other.x, self.y - other.y, self.theta - other.theta)
 
     def __mul__(self, other):
-        return Point(self.x * other.x,
-                     self.y * other.y, self.theta * other.theta)
+        return Point(self.x * other.x, self.y * other.y, self.theta * other.theta)
 
     def __div__(self, other):
-        return Point(self.x / other.x,
-                     self.y / other.y, self.theta / other.theta)
+        return Point(self.x / other.x, self.y / other.y, self.theta / other.theta)
 
     def __eq__(self, other):
-        return self.x == other.x \
-            and self.y == other.y and self.theta == other.theta
+        return self.x == other.x and self.y == other.y and self.theta == other.theta
 
     def __str__(self):
-        return "("+str(self.x) + "," + str(self.y) + "," + str(self.theta) + ")"
+        return "(" + str(self.x) + "," + str(self.y) + "," + str(self.theta) + ")"

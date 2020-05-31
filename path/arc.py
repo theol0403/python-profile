@@ -23,7 +23,7 @@ class Arc(Path):
         return self.s * t
 
     def t_at_dist(self, d):
-        return d/self.s
+        return d / self.s
 
     def calc(self, t):
         x, y = 0, 0
@@ -33,7 +33,7 @@ class Arc(Path):
             x = self.r * np.cos(t * self.theta) - self.r
             y = self.r * np.sin(t * self.theta)
 
-        theta = self.rotate - np.pi/2.0
+        theta = self.rotate - np.pi / 2.0
 
         x_r = x * np.cos(theta) - y * np.sin(theta)
         y_r = y * np.cos(theta) + x * np.sin(theta)
@@ -48,7 +48,7 @@ def fit_arcs(path, num):
     arcs = Piecewise()
     start = path.calc(0)
     for i in range(num):
-        end = path.calc((1.0/num)*(i+1))
+        end = path.calc((1.0 / num) * (i + 1))
         arcs.arr.append(Arc(start, end))
         start = end
     return arcs
