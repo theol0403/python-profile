@@ -3,20 +3,17 @@ import numpy as np
 
 
 class Bot:
-    def __init__(self, *, track, max_vel, pose=Point.origin()):
+    def __init__(self, *, track, max_vel=1, pose=Point.origin()):
         self.track = track
         self.max_vel = max_vel
         self.pose = pose
 
-    # def rpm_to_linear_vel(self, rpm):
-    #     return (rpm / 60.0) * self.gearing * self.wheel_diam * np.pi
-
-    # def linear_vel_to_rpm(self, linear_vel):
-    #     return (linear_vel * 60) / (self.gearing * self.wheel_diam * np.pi)
-
     # http://www.cs.columbia.edu/~allen/F15/NOTES/icckinematics.pdf
     # errors if wheeltrack == 0
     def move(self, left_vel, right_vel, dt):
+
+        left_vel = np.clip(left_vel, -self.max_vel, self.max_vel)
+        right_vel = np.clip(right_vel, -self.max_vel, self.max_vel)
 
         if left_vel == right_vel:
             new_x = self.pose.x + np.cos(self.pose.theta) * left_vel * dt
@@ -68,13 +65,19 @@ class Bot:
         return states
 
     @staticmethod
-    def default15():
-        return Bot(track=14, max_vel=1)
+    def default15(**kwargs):
+        return Bot(track=14, **kwargs)
 
     @staticmethod
-    def default18():
-        return Bot(track=17, max_vel=1)
+    def default18(**kwargs):
+        return Bot(track=17, **kwargs)
 
     @staticmethod
-    def default24():
-        return Bot(track=23, max_vel=1)
+    def default24(**kwargs):
+        return Bot(track=23, **kwargs)
+
+    # def rpm_to_linear_vel(self, rpm):
+    #     return (rpm / 60.0) * self.gearing * self.wheel_diam * np.pi
+
+    # def linear_vel_to_rpm(self, linear_vel):
+    #     return (linear_vel * 60) / (self.gearing * self.wheel_diam * np.pi)

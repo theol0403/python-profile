@@ -4,15 +4,15 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import math
 
-bot = Bot(track=15, pose=Point(0, 0, math.pi / 4), max_vel=2)
+bot = Bot(track=15, pose=Point(0, 0, math.pi / 4))
 print(bot.pose)
 bot.move(2, 2.0001, 1)
 print(bot.pose)
 
-bot2 = Bot.default15()
+bot2 = Bot.default15(max_vel=2)
 start = bot2.pose
 
-constraints = TrapezoidalConstraints(max_vel=bot.max_vel, max_accel=1)
+constraints = TrapezoidalConstraints(max_vel=bot2.max_vel, max_accel=1)
 profile = Trapezoidal(constraints, 10)
 
 dt = 0.1
@@ -27,18 +27,18 @@ vels.append(vel)
 
 vels = np.tile(vels, (2, 1))
 
-orientations = bot2.simulate(vels, dt)
-x = np.zeros(len(orientations) + 1)
-y = np.zeros(len(orientations) + 1)
-thetas = np.zeros(len(orientations) + 1)
+states = bot2.simulate(vels, dt)
+x = np.zeros(len(states) + 1)
+y = np.zeros(len(states) + 1)
+thetas = np.zeros(len(states) + 1)
 x[0] = start.x
 y[0] = start.y
 thetas[0] = start.theta
-for i in range(len(orientations)):
-    print(orientations[i])
-    x[i + 1] = orientations[i].x
-    y[i + 1] = orientations[i].y
-    thetas[i + 1] = orientations[i].theta
+for i in range(len(states)):
+    print(states[i])
+    x[i + 1] = states[i].x
+    y[i + 1] = states[i].y
+    thetas[i + 1] = states[i].theta
 
 plt.scatter(x, y, marker=".")
 plt.show()
