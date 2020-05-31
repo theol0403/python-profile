@@ -1,11 +1,19 @@
 import numpy as np
 
 
+class TrapezoidalConstraints:
+    def __init__(self, *, max_vel, max_accel):
+        self.vel = max_vel
+        self.accel = max_accel
+
+
 class Trapezoidal:
-    def __init__(self, accel, vel, length):
-        self.accel = accel
-        self.vel = vel
+    def __init__(self, limits, length):
+        self.limits = limits
         self.length = length
+
+        accel = self.limits.accel
+        vel = self.limits.vel
 
         # the time it takes to accelerate to full speed
         self.t_accel = vel / accel
@@ -30,18 +38,18 @@ class Trapezoidal:
     def v_at_t(self, t):
         if t <= self.t_accel:
             # acceleleration
-            return self.accel * t
+            return self.limits.accel * t
         elif t > self.t_accel and t < self.t_accel + self.t_cruise:
             # cruising
             return self.top_vel
         else:
             # deceleration
-            return self.top_vel - (t - self.t_accel - self.t_cruise) * self.accel
+            return self.top_vel - (t - self.t_accel - self.t_cruise) * self.limits.accel
 
     def v_at_d(self, d):
         if d <= self.d_accel:
             # acceleleration
-            return np.sqrt(2 * self.accel * d)
+            return np.sqrt(2 * self.limits.accel * d)
         elif d > self.d_accel and d < self.length - self.d_accel:
             # cruising
             return self.top_vel
@@ -50,4 +58,4 @@ class Trapezoidal:
             if d > self.length:
                 return 0
             d_from_decel = d - self.d_accel - self.d_cruise
-            return np.sqrt(self.top_vel ** 2 - 2 * self.accel * d_from_decel)
+            return np.sqrt(self.top_vel ** 2 - 2 * self.limits.accel * d_from_decel)

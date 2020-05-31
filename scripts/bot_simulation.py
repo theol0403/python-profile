@@ -15,7 +15,9 @@ print(bot.pose)
 bot2 = Bot.default15()
 start = bot2.pose
 
-profile = Trapezoidal(1, 2, 10)
+constraints = TrapezoidalConstraints(max_vel=2, max_accel=1)
+profile = Trapezoidal(constraints, 10)
+
 dt = 0.1
 vels = []
 dist = 0

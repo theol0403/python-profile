@@ -1,8 +1,9 @@
-from generator.trapezoidal import Trapezoidal
+from generator.trapezoidal import Trapezoidal, TrapezoidalConstraints
 import matplotlib.pyplot as plt
 import numpy as np
 
-profile = Trapezoidal(1, 2, 10)
+constraints = TrapezoidalConstraints(max_vel=2, max_accel=1)
+profile = Trapezoidal(constraints, 10)
 
 x = np.linspace(0, profile.length, 101)
 y = [profile.v_at_d(d) for d in x]
