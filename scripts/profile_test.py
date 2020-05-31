@@ -1,9 +1,9 @@
-from generator.trapezoidal import Trapezoidal
+from generator.trapezoidal import DistanceTrapezoidal
 import matplotlib.pyplot as plt
 import numpy as np
 
 
-profile = Trapezoidal(1, 2, 10)
+profile = DistanceTrapezoidal(1, 2, 10)
 
 x = [d / 10 for d in range(101)]
 y = [profile.calc_at_d(d) for d in x]

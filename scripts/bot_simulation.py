@@ -1,5 +1,5 @@
 from simulation.bot import *
-from generator.trapezoidal import Trapezoidal
+from generator.trapezoidal import DistanceTrapezoidal
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import math
@@ -15,7 +15,7 @@ print(bot.pose)
 bot2 = Bot.default15()
 start = bot2.pose
 
-profile = Trapezoidal(1, 2, 10)
+profile = DistanceTrapezoidal(1, 2, 10)
 vels = [[], []]
 dt = 0.001
 dist = 0.0000001

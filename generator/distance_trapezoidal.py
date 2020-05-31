@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class Trapezoidal:
+class DistanceTrapezoidal:
     def __init__(self, accel, vel, length):
         self.accel = accel
         self.vel = vel
