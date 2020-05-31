@@ -4,9 +4,9 @@ import numpy as np
 
 
 class Bot:
-    def __init__(self, wheel_track, orientation, gearing, wheel_diam):
+    def __init__(self, wheel_track, pose, gearing, wheel_diam):
         self.wheel_track = wheel_track
-        self.pose = orientation
+        self.pose = pose
         self.gearing = gearing
         self.wheel_diam = wheel_diam
 
@@ -75,8 +75,8 @@ class Bot:
         return self.pose
 
     def simulate(self, vels, dt):
-        orientations = []
+        states = []
         for i in range(len(vels[0])):
-            orientations.append(self.move(vels[0][i], vels[1][i], dt))
+            states.append(self.move(vels[0][i], vels[1][i], dt))
 
-        return orientations
+        return states
