@@ -47,5 +47,7 @@ class Trapezoidal:
             return self.top_vel
         else:
             # deceleration
+            if d > self.length:
+                return 0
             d_from_decel = d - self.d_accel - self.d_cruise
             return np.sqrt(self.top_vel ** 2 - 2 * self.accel * d_from_decel)

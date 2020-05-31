@@ -12,13 +12,15 @@ plt.plot(x, y)
 plt.title("Vel vs Distance")
 plt.grid()
 
-vels = []
 dt = 0.01
-dist = profile.v_at_t(dt) * dt
+vels = []
+dist = 0
+vel = profile.v_at_t(dt)
 while dist <= profile.length:
-    vel = profile.v_at_d(dist)
     vels.append(vel)
     dist += vel * dt
+    vel = profile.v_at_d(dist)
+vels.append(vel)
 
 plt.subplot(1, 2, 2)
 plt.plot(np.linspace(0, profile.time, len(vels)), vels)
