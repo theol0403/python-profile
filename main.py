@@ -5,11 +5,11 @@ from generator.bot import Bot
 from generator.generator import Generator
 import matplotlib.pyplot as plt
 
-bot = Bot(track=1, max_vel=2)
-constrants = TrapezoidalConstraints(max_vel=bot.max_vel, max_accel=1)
+bot = Bot(track=1, max_vel=1)
+constrants = TrapezoidalConstraints(max_vel=bot.max_vel, max_accel=0.5)
 generator = Generator(constrants, bot)
 
-path = new_hermite(QuinticHermite, Point(0, 0, 0), Point(3, 3, 0))
+path = new_bezier([Point(0, 0), Point(2, 0), Point(1, 3), Point(3, 3)])
 
 trajectory = generator.generate(path=path, dt=0.01, arc_num=50)
 

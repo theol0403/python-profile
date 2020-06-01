@@ -21,8 +21,7 @@ class Generator:
 
         trajectory = []
 
-        dist = 0
-        vel = profile.v_at_t(dt)
+        dist = profile.v_at_t(dt) * dt
         while dist <= length:
 
             # find the arc and t along that arc given distance
@@ -36,11 +35,12 @@ class Generator:
                     arc_t = arc.t_at_dist(dist_remaining)
                     break
 
-            pos = current_arc.calc(arc_t)
-            dist += vel * dt
-
-            trajectory.append(Step(pos, vel, 0))
             vel = profile.v_at_d(dist)
+
+            pos = current_arc.calc(arc_t)
+
+            dist += vel * dt
+            trajectory.append(Step(pos, vel, 0))
 
         trajectory.append(Step(arcs[-1].calc(1), 0, 0))
         return trajectory
