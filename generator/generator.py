@@ -15,8 +15,8 @@ class Generator:
         self.drive = drive
 
     def generate(self, *, path, dt, arc_num):
-        arcs = fit_arcs(path, arc_num)
-        length = sum(a.length() for a in arcs.arr)
+        arcs = fit_arcs(path, arc_num).arr
+        length = sum(a.length() for a in arcs)
         profile = Trapezoidal(self.constraints, length)
 
         trajectory = []
@@ -25,9 +25,10 @@ class Generator:
         vel = profile.v_at_t(dt)
         while dist <= length:
 
+            # find the arc and t along that arc given distance
             current_arc, arc_t = 0, 0
-            dist_remaining = dist
-            for arc in arcs.arr:
+            dist_remaining = dist  # gets reduced until it fits in the length of an arc
+            for arc in arcs:
                 if dist_remaining > arc.length():
                     dist_remaining -= arc.length()
                 else:
@@ -36,10 +37,10 @@ class Generator:
                     break
 
             pos = current_arc.calc(arc_t)
-
             dist += vel * dt
-            vel = profile.v_at_d(dist)
 
             trajectory.append(Step(pos, vel, 0))
+            vel = profile.v_at_d(dist)
 
-        return []
+        trajectory.append(Step(arcs[-1].calc(1), 0, 0))
+        return trajectory
