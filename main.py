@@ -3,11 +3,33 @@ from path.point import Point
 from generator.trapezoidal import TrapezoidalConstraints
 from generator.bot import Bot
 from generator.generator import Generator
+import matplotlib.pyplot as plt
 
 bot = Bot(track=1, max_vel=2)
 constrants = TrapezoidalConstraints(max_vel=bot.max_vel, max_accel=1)
 generator = Generator(constrants, bot)
 
-path = new_hermite(QuinticHermite, Point(0, 0, 0), Point(1, 1, 0))
+path = new_hermite(QuinticHermite, Point(0, 0, 0), Point(3, 3, 0))
 
 trajectory = generator.generate(path=path, dt=0.01, arc_num=50)
+
+
+plt.subplot(1, 2, 1)
+plt.title("Path")
+plt.grid()
+
+x = [step.point.x for step in trajectory]
+y = [step.point.y for step in trajectory]
+plt.plot(x, y)
+
+
+plt.subplot(1, 2, 2)
+plt.title("Velocity")
+plt.grid()
+
+vels = [step.v for step in trajectory]
+plt.plot(np.linspace(0, len(trajectory) * 0.01, len(vels)), vels)
+
+
+plt.tight_layout()
+plt.show()
