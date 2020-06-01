@@ -35,12 +35,15 @@ class Generator:
                     arc_t = arc.t_at_dist(dist_remaining)
                     break
 
-            vel = profile.v_at_d(dist)
-
             pos = current_arc.calc(arc_t)
 
+            vel = profile.v_at_d(dist)
+
+            curvature = current_arc.curvature()
+            angular_vel = vel * curvature
+
             dist += vel * dt
-            trajectory.append(Step(pos, vel, 0))
+            trajectory.append(Step(pos, vel, angular_vel))
 
         trajectory.append(Step(arcs[-1].calc(1), 0, 0))
         return trajectory

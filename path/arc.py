@@ -28,6 +28,12 @@ class Arc(Path):
     def length(self):
         return self.s
 
+    def curvature(self):
+        if np.isinf(self.r):
+            return 0
+        else:
+            return 1.0 / self.r
+
     def calc(self, t):
         x, y = 0, 0
         if np.isinf(self.r):
