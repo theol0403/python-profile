@@ -1,5 +1,6 @@
 from path.functions import *
-from generator.profile import TrapezoidalConstraints
+from path.point import Point
+from generator.trapezoidal import TrapezoidalConstraints
 from generator.bot import Bot
 from generator.generator import Generator
 
@@ -9,4 +10,4 @@ generator = Generator(constrants, bot)
 
 path = new_hermite(QuinticHermite, Point(0, 0, 0), Point(1, 1, 0))
 
-trajectory = generator.generate(path=path, dt=0.01, arcs=50)
+trajectory = generator.generate(path=path, dt=0.01, arc_num=50)

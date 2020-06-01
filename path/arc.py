@@ -25,6 +25,9 @@ class Arc(Path):
     def t_at_dist(self, d):
         return d / self.s
 
+    def length(self):
+        return self.s
+
     def calc(self, t):
         x, y = 0, 0
         if np.isinf(self.r):
