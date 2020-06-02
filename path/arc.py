@@ -61,3 +61,13 @@ def fit_arcs(path, num):
         arcs.arr.append(Arc(start, end))
         start = end
     return arcs
+
+
+def arc_t_at_dist(arcs, dist):
+    # find the arc and t along that arc given distance
+    dist_remaining = dist  # gets reduced until it fits in the length of an arc
+    for arc in arcs:
+        if dist_remaining > arc.length():
+            dist_remaining -= arc.length()
+        else:
+            return arc, arc.t_at_dist(dist_remaining)

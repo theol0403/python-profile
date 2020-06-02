@@ -23,27 +23,17 @@ class Generator:
 
         dist = profile.v_at_t(dt) * dt
         while dist <= length:
-
-            # find the arc and t along that arc given distance
-            current_arc, arc_t = 0, 0
-            dist_remaining = dist  # gets reduced until it fits in the length of an arc
-            for arc in arcs:
-                if dist_remaining > arc.length():
-                    dist_remaining -= arc.length()
-                else:
-                    current_arc = arc
-                    arc_t = arc.t_at_dist(dist_remaining)
-                    break
-
-            pos = current_arc.calc(arc_t)
+            arc, t = arc_t_at_dist(arcs, dist)
+            pos = arc.calc(t)
 
             vel = profile.v_at_d(dist)
 
-            curvature = current_arc.curvature()
+            curvature = arc.curvature()
             angular_vel = vel * curvature
 
             dist += vel * dt
             trajectory.append(Step(pos, vel, angular_vel))
 
+        # last step is 0
         trajectory.append(Step(arcs[-1].calc(1), 0, 0))
         return trajectory
