@@ -3,10 +3,11 @@ from path.arc import *
 
 
 class Step:
-    def __init__(self, point, v, w):
+    def __init__(self, point, v, w, curvature):
         self.point = point
         self.v = v
         self.w = w
+        self.curvature = curvature
 
 
 class Generator:
@@ -32,8 +33,8 @@ class Generator:
             angular_vel = vel * curvature
 
             dist += vel * dt
-            trajectory.append(Step(pos, vel, angular_vel))
+            trajectory.append(Step(pos, vel, angular_vel, curvature))
 
         # last step is 0
-        trajectory.append(Step(arcs[-1].calc(1), 0, 0))
-        return trajectory
+        # trajectory.append(Step(arcs[-1].calc(1), 0, 0, 0))
+        return trajectory, profile, length, arcs
