@@ -5,9 +5,8 @@ import matplotlib.animation as animation
 import math
 
 bot = Bot(track=15, pose=Point(0, 0, math.pi / 4))
-print(bot.pose)
-bot.move(2, 2.0001, 1)
-print(bot.pose)
+print(Bot.max_vels_from_scales(200, 0.05, 1, 0.3))
+print(bot.max_lin_vel_at_curvature(0.5))
 
 bot2 = Bot.default15(max_vel=2)
 start = bot2.pose
