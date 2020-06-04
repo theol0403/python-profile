@@ -3,10 +3,14 @@ import numpy as np
 
 
 class Bot:
-    def __init__(self, *, track, max_vel=1, pose=Point.origin()):
+    def __init__(self, *, track, max_vel=1, max_ang_vel=1, pose=Point.origin()):
         self.track = track
         self.max_vel = max_vel
+        self.max_ang_vel = max_ang_vel
         self.pose = pose
+
+    def max_lin_vel_at_curvature(self, curvature):
+        return (max_ang_vel * max_vel)/(curvature * max_vel + max_ang_vel)
 
     # http://www.cs.columbia.edu/~allen/F15/NOTES/icckinematics.pdf
     # errors if wheeltrack == 0
