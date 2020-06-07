@@ -3,10 +3,13 @@ import numpy as np
 
 
 class Bot:
-    def __init__(self, *, track, max_vel=1, max_ang_vel=1, pose=Point.origin()):
+    def __init__(
+        self, *, track, max_vel=1, max_ang_vel=1, max_accel=1, pose=Point.origin()
+    ):
         self.track = track
         self.max_vel = max_vel
         self.max_ang_vel = max_ang_vel
+        self.max_accel = max_accel
         self.pose = pose
 
     @staticmethod

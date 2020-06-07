@@ -11,14 +11,13 @@ class Step:
 
 
 class Generator:
-    def __init__(self, constraints, drive):
-        self.constraints = constraints
-        self.drive = drive
+    def __init__(self, bot):
+        self.bot = bot
 
     def generate(self, *, path, dt, arc_num):
         arcs = fit_arcs(path, arc_num).arr
         length = sum(a.length() for a in arcs)
-        profile = Trapezoidal(self.constraints, length)
+        profile = Trapezoidal(self.bot, length)
 
         trajectory = []
 

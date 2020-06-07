@@ -1,18 +1,17 @@
 from path.functions import *
 from path.point import Point
-from generator.trapezoidal import TrapezoidalConstraints
 from generator.bot import Bot
 from generator.generator import Generator
 import matplotlib.pyplot as plt
 
-bot = Bot(track=1, max_vel=1)
-constrants = TrapezoidalConstraints(max_vel=bot.max_vel, max_accel=0.5)
-generator = Generator(constrants, bot)
+bot = Bot(track=1, max_vel=1, max_accel=0.5, max_ang_vel=1)
 
 path = new_bezier([Point(0, 0), Point(1, 0), Point(2, 3), Point(3, 3)])
 
 # generate the profile
-trajectory, profile, length, arcs = generator.generate(path=path, dt=0.01, arc_num=50)
+trajectory, profile, length, arcs = Generator(bot).generate(
+    path=path, dt=0.01, arc_num=500
+)
 
 # x axis for time plots
 time_range = np.linspace(0, len(trajectory) * 0.01, len(trajectory))
