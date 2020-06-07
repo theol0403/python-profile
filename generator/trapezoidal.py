@@ -16,7 +16,7 @@ class Trapezoidal:
         # if cruise time is negative, time needs to be shaved off the acceleration
         # this is now a triangular profile
         if self.t_cruise < 0:
-            self.t_accel += self.t_cruise / 2
+            self.t_accel = np.sqrt(length * accel) / accel
             self.t_cruise = 0
 
         # maximum attainable speed given time constraints (if triangular)
@@ -52,7 +52,9 @@ class Trapezoidal:
             return self.top_vel
         else:
             # deceleration
-            if d > self.length:
-                return 0
             d_from_decel = d - self.d_accel - self.d_cruise
-            return np.sqrt(self.top_vel ** 2 - 2 * self.limits.max_accel * d_from_decel)
+            v_2 = self.top_vel ** 2 - 2 * self.limits.max_accel * d_from_decel
+            if v_2 < 0:
+                return 0
+            else:
+                return np.sqrt(v_2)
