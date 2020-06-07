@@ -1,7 +1,7 @@
 from path.functions import *
 from path.point import Point
 from generator.bot import Bot
-from generator.generator import Generator
+from generator.generator import generate
 import matplotlib.pyplot as plt
 
 bot = Bot(track=1, max_vel=1, max_accel=0.5, max_ang_vel=1)
@@ -9,9 +9,7 @@ bot = Bot(track=1, max_vel=1, max_accel=0.5, max_ang_vel=1)
 path = new_bezier([Point(0, 0), Point(1, 0), Point(2, 3), Point(3, 3)])
 
 # generate the profile
-trajectory, profile, length, arcs = Generator(bot).generate(
-    path=path, dt=0.01, arc_num=500
-)
+trajectory, profile, length, arcs = generate(bot=bot, path=path, dt=0.01, arc_num=500)
 
 # x axis for time plots
 time_range = np.linspace(0, len(trajectory) * 0.01, len(trajectory))

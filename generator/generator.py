@@ -10,30 +10,27 @@ class Step:
         self.curvature = curvature
 
 
-class Generator:
-    def __init__(self, bot):
-        self.bot = bot
+def generate(*, bot, path, dt, arc_num):
+    arcs = fit_arcs(path, arc_num).arr
+    length = sum(a.length() for a in arcs)
+    profile = Trapezoidal(bot, length)
 
-    def generate(self, *, path, dt, arc_num):
-        arcs = fit_arcs(path, arc_num).arr
-        length = sum(a.length() for a in arcs)
-        profile = Trapezoidal(self.bot, length)
+    trajectory = []
 
-        trajectory = []
+    dist = profile.v_at_t(dt) * dt
+    while dist <= length:
+        arc, t = arc_t_at_dist(arcs, dist)
+        pos = arc.calc(t)
 
-        dist = profile.v_at_t(dt) * dt
-        while dist <= length:
-            arc, t = arc_t_at_dist(arcs, dist)
-            pos = arc.calc(t)
+        vel = profile.v_at_d(dist)
 
-            vel = profile.v_at_d(dist)
+        curvature = arc.curvature()
+        angular_vel = vel * curvature
+        # max_linear_vel =
 
-            curvature = arc.curvature()
-            angular_vel = vel * curvature
+        dist += vel * dt
+        trajectory.append(Step(pos, vel, angular_vel, curvature))
 
-            dist += vel * dt
-            trajectory.append(Step(pos, vel, angular_vel, curvature))
-
-        # last step is 0
-        # trajectory.append(Step(arcs[-1].calc(1), 0, 0, 0))
-        return trajectory, profile, length, arcs
+    # last step is 0
+    # trajectory.append(Step(arcs[-1].calc(1), 0, 0, 0))
+    return trajectory, profile, length, arcs
