@@ -36,7 +36,7 @@ plt.grid()
 c = [step.curvature for step in trajectory]
 plt.plot(time_range, c)
 
-c = [step.interpolated_curvature for step in trajectory]
+c = [step.curvature_lerp for step in trajectory]
 plt.plot(time_range, c)
 
 plt.subplot(2, 3, 4)

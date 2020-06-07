@@ -3,12 +3,12 @@ from path.arc import *
 
 
 class Step:
-    def __init__(self, point, v, w, curvature, interpolated_curvature):
+    def __init__(self, point, v, w, curvature, curvature_lerp):
         self.point = point
         self.v = v
         self.w = w
         self.curvature = curvature
-        self.interpolated_curvature = interpolated_curvature
+        self.curvature_lerp = curvature_lerp
 
 
 def generate(*, bot, path, dt, arc_num):
@@ -24,18 +24,16 @@ def generate(*, bot, path, dt, arc_num):
         pos = arc.calc(t)
 
         curvature = arc.curvature()
-        interpolated_curvature = interpolate_curvature(arcs, i, t)
+        curvature_lerp = interpolate_curvature(arcs, i, t)
 
         vel = profile.v_at_d(dist)
-        max_linear_vel = bot.max_lin_vel_at_curvature(interpolated_curvature)
+        max_linear_vel = bot.max_lin_vel_at_curvature(curvature_lerp)
 
         vel = np.min([vel, max_linear_vel])
-        angular_vel = vel * interpolated_curvature
+        angular_vel = vel * curvature_lerp
 
         dist += vel * dt
-        trajectory.append(
-            Step(pos, vel, angular_vel, curvature, interpolated_curvature)
-        )
+        trajectory.append(Step(pos, vel, angular_vel, curvature, curvature_lerp))
 
     # last step is 0
     # trajectory.append(Step(arcs[-1].calc(1), 0, 0, 0))
