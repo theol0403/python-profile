@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 bot = Bot(track=1, max_vel=2, max_accel=1)
-profile = Trapezoidal(bot, 7)
+profile = Trapezoidal(bot, 3)
 
 dt = 0.01
 x = np.arange(0, profile.time + dt, dt)

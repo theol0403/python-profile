@@ -5,6 +5,7 @@ import numpy as np
 
 bot = Bot(track=1, max_vel=2, max_accel=1)
 profile = Trapezoidal(bot, 3)
+print(vars(profile))
 
 x = np.linspace(0, profile.length, 101)
 y = [profile.v_at_d(d) for d in x]
@@ -25,6 +26,7 @@ vels.append(0)
 
 final_dist = np.sum(np.array(vels) * dt)
 print(f"Final distance: {final_dist}")
+print(f"Time: {len(vels)* dt}")
 
 plt.subplot(1, 2, 2)
 plt.plot(np.linspace(0, profile.time, len(vels)), vels)
