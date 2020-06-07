@@ -11,7 +11,8 @@ path = new_bezier([Point(0, 0), Point(1, 0), Point(2, 3), Point(3, 3)])
 dt = 0.01
 
 # generate the profile
-trajectory, profile, length, arcs = generate(bot=bot, path=path, dt=dt, arc_num=50)
+trajectory, profile, length, arcs = generate(bot=bot, path=path, dt=dt,
+                                             arc_num=50)
 
 # x axis for time plots
 time_range = np.linspace(0, len(trajectory) * dt, len(trajectory))
@@ -61,13 +62,13 @@ plt.grid()
 
 vel = np.array([step.v for step in trajectory])
 ang_vel = np.array([step.w for step in trajectory])
-l = vel - (ang_vel * bot.track) / 2
-r = vel + (ang_vel * bot.track) / 2
+left_speeds = vel - (ang_vel * bot.track) / 2
+right_speeds = vel + (ang_vel * bot.track) / 2
 
-plt.plot(time_range, l)
-plt.plot(time_range, r)
+plt.plot(time_range, left_speeds)
+plt.plot(time_range, right_speeds)
 
-states = bot.simulate(np.array((l, r)), 0.01)
+states = bot.simulate(np.array((left_speeds, right_speeds)), dt)
 x = np.zeros(len(states) + 1)
 y = np.zeros(len(states) + 1)
 thetas = np.zeros(len(states) + 1)
@@ -79,7 +80,8 @@ for i in range(len(states)):
     y[i + 1] = states[i].y
     thetas[i + 1] = states[i].theta
 
-print("Final pose: " + str(bot.pose))
+print("Position error: " + str(bot.pose.dist(Point(3, 3))))
+print("Angle error: " + str(bot.pose.theta - 0))
 plt.subplot(2, 4, 7)
 plt.title("Simulated")
 plt.grid()
