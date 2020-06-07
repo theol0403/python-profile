@@ -4,7 +4,7 @@ from generator.bot import Bot
 from generator.generator import generate
 import matplotlib.pyplot as plt
 
-bot = Bot(track=1, max_vel=1, max_accel=0.5, max_ang_vel=1)
+bot = Bot(track=1, max_vel=2, max_accel=1, max_ang_vel=2)
 
 path = new_bezier([Point(0, 0), Point(1, 0), Point(2, 3), Point(3, 3)])
 
