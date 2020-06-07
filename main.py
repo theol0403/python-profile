@@ -3,16 +3,21 @@ from path.point import Point
 from generator.bot import Bot
 from generator.generator import generate
 import matplotlib.pyplot as plt
+from pint import UnitRegistry
 
-bot = Bot(track=1, max_vel=2, max_accel=1, max_ang_vel=2)
+u = UnitRegistry()
+track = (2 * u.feet).to(u.meter).m
+diam = (4 * u.inch).to(u.meter).m
+
+max_lin, max_ang = Bot.max_vels_from_scales(200, diam, track)
+
+bot = Bot(track=track, max_vel=max_lin, max_accel=1, max_ang_vel=max_ang)
+dt = 0.01
 
 path = new_bezier([Point(0, 0), Point(1, 0), Point(2, 3), Point(3, 3)])
 
-dt = 0.01
-
 # generate the profile
-trajectory, profile, length, arcs = generate(bot=bot, path=path, dt=dt,
-                                             arc_num=50)
+trajectory, profile, length, arcs = generate(bot=bot, path=path, dt=dt, arc_num=50)
 
 # x axis for time plots
 time_range = np.linspace(0, len(trajectory) * dt, len(trajectory))
@@ -68,6 +73,10 @@ right_speeds = vel + (ang_vel * bot.track) / 2
 plt.plot(time_range, left_speeds)
 plt.plot(time_range, right_speeds)
 
+plt.subplot(2, 4, 7)
+plt.title("Simulated")
+plt.grid()
+
 states = bot.simulate(np.array((left_speeds, right_speeds)), dt)
 x = np.zeros(len(states) + 1)
 y = np.zeros(len(states) + 1)
@@ -80,12 +89,11 @@ for i in range(len(states)):
     y[i + 1] = states[i].y
     thetas[i + 1] = states[i].theta
 
-print("Position error: " + str(bot.pose.dist(Point(3, 3))))
-print("Angle error: " + str(bot.pose.theta - 0))
-plt.subplot(2, 4, 7)
-plt.title("Simulated")
-plt.grid()
 
 plt.plot(x, y, marker=".")
+
+print("Position error: " + str(bot.pose.dist(Point(3, 3))))
+print("Angle error: " + str(bot.pose.theta - 0))
+
 plt.gcf().set_tight_layout(True)
 plt.show()

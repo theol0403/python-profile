@@ -13,9 +13,8 @@ class Bot:
         self.pose = pose
 
     @staticmethod
-    def max_vels_from_scales(rpm, wheel_diam, gearing, track):
-        output_rpm = gearing * rpm
-        lin_vel = output_rpm / 60.0 * wheel_diam * np.pi
+    def max_vels_from_scales(rpm, wheel_diam, track):
+        lin_vel = rpm / 60.0 * wheel_diam * np.pi
         ang_vel = 2 * lin_vel / track
         return lin_vel, ang_vel
 
