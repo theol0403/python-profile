@@ -13,20 +13,25 @@ class Trapezoidal:
         self.t_accel = vel / accel
         # the time spent cruising at full speed
         self.t_cruise = (length - self.t_accel * vel) / vel
-        # if cruise time is negative, time needs to be shaved off the acceleration
-        # this is now a triangular profile
-        if self.t_cruise < 0:
-            self.t_accel = np.sqrt(length * accel) / accel
-            self.t_cruise = 0
 
-        # maximum attainable speed given time constraints (if triangular)
-        self.top_vel = accel * self.t_accel
+        # if cruise time is negative, time needs to be shaved off the acceleration
+        if self.t_cruise < 0:
+            # this is a triangular profile
+            self.t_cruise = 0
+            # maximum attainable speed given time constraints (if triangular)
+            self.top_vel = np.sqrt(length * accel)
+            # time to accelerate to max speed
+            self.t_accel = self.top_vel / accel
+        else:
+            # this is not a triangular profile
+            self.top_vel = vel
+
         # the time it takes to complete the profile
         self.time = self.t_accel * 2 + self.t_cruise
 
-        # the distance spent accelerate to full speed
+        # the distance to accelerate to full speed
         self.d_accel = 0.5 * accel * (self.t_accel ** 2)
-        # the distance spent at full speed
+        # the distance to cruise
         self.d_cruise = self.top_vel * self.t_cruise
 
     def v_at_t(self, t):
