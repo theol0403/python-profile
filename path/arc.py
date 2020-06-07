@@ -74,9 +74,17 @@ def arc_t_at_dist(arcs, dist):
 
 
 def interpolate_curvature(arcs, i, t):
+    start = arcs[i].curvature()
+    end = arcs[i].curvature()
+    if i > 0:
+        start = (arcs[i].curvature() + arcs[i - 1].curvature()) / 2
     if i < len(arcs) - 1:
-        start_c = arcs[i].curvature()
-        end_c = arcs[i + 1].curvature()
-        return start_c + t * (end_c - start_c)
-    else:
-        return arcs[i].curvature()
+        end = (arcs[i].curvature() + arcs[i + 1].curvature()) / 2
+    return start + t * (end - start)
+
+    # if i < len(arcs) - 1:
+    #     start_c = arcs[i].curvature()
+    #     end_c = arcs[i + 1].curvature()
+    #     return start_c + t * (end_c - start_c)
+    # else:
+    #     return arcs[i].curvature()
