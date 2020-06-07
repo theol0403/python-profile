@@ -27,7 +27,10 @@ class Bot:
     # errors if wheeltrack == 0
     def move(self, left_vel, right_vel, dt):
 
-        if np.abs(left_vel) > self.max_vel or np.abs(right_vel) > self.max_vel:
+        if (
+            np.abs(left_vel) > self.max_vel + 1e-7
+            or np.abs(right_vel) > self.max_vel + 1e-7
+        ):
             print("Error: Wheel Saturation")
 
         if left_vel == right_vel:
