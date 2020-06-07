@@ -78,17 +78,8 @@ plt.title("Simulated")
 plt.grid()
 
 states = bot.simulate(np.array((left_speeds, right_speeds)), dt)
-x = np.zeros(len(states) + 1)
-y = np.zeros(len(states) + 1)
-thetas = np.zeros(len(states) + 1)
-x[0] = 0
-y[0] = 0
-thetas[0] = 0
-for i in range(len(states)):
-    x[i + 1] = states[i].x
-    y[i + 1] = states[i].y
-    thetas[i + 1] = states[i].theta
-
+x = [s.x for s in states]
+y = [s.y for s in states]
 
 plt.plot(x, y, marker=".")
 
