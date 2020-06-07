@@ -53,5 +53,17 @@ plt.grid()
 vels = [step.w for step in trajectory]
 plt.plot(time_range, vels)
 
+plt.subplot(2, 3, 6)
+plt.title("Wheel Speeds")
+plt.grid()
+
+vel = np.array([step.v for step in trajectory])
+ang_vel = np.array([step.w for step in trajectory])
+l = vel + (ang_vel * bot.track) / 2
+r = vel - (ang_vel * bot.track) / 2
+
+plt.plot(time_range, l)
+plt.plot(time_range, r)
+
 plt.gcf().set_tight_layout(True)
 plt.show()
