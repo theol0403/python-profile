@@ -77,9 +77,10 @@ states = bot.simulate(np.array((left_speeds, right_speeds)), dt)
 x = [s.x for s in states]
 y = [s.y for s in states]
 
-
-print("Position error: " + str(bot.pose.dist(Point(3, 3))))
-print("Angle error: " + str(bot.pose.theta - 0))
+pos_err = bot.pose.dist(path.calc(1))
+ang_err = bot.pose.theta - path.calc(1).theta
+print(f"Position error: {pos_err:.05} meters")
+print(f"Angle error: {ang_err:.05} meters")
 
 plt.gcf().set_tight_layout(True)
 plt.show()
