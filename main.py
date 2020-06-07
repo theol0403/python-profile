@@ -9,7 +9,7 @@ bot = Bot(track=1, max_vel=1, max_accel=0.5, max_ang_vel=1)
 path = new_bezier([Point(0, 0), Point(1, 0), Point(2, 3), Point(3, 3)])
 
 # generate the profile
-trajectory, profile, length, arcs = generate(bot=bot, path=path, dt=0.01, arc_num=500)
+trajectory, profile, length, arcs = generate(bot=bot, path=path, dt=0.01, arc_num=5)
 
 # x axis for time plots
 time_range = np.linspace(0, len(trajectory) * 0.01, len(trajectory))
@@ -34,6 +34,9 @@ plt.title("Curvature")
 plt.grid()
 
 c = [step.curvature for step in trajectory]
+plt.plot(time_range, c)
+
+c = [step.interpolated_curvature for step in trajectory]
 plt.plot(time_range, c)
 
 plt.subplot(2, 3, 4)

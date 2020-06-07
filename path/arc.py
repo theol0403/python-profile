@@ -66,8 +66,17 @@ def fit_arcs(path, num):
 def arc_t_at_dist(arcs, dist):
     # find the arc and t along that arc given distance
     dist_remaining = dist  # gets reduced until it fits in the length of an arc
-    for arc in arcs:
+    for i, arc in enumerate(arcs):
         if dist_remaining > arc.length():
             dist_remaining -= arc.length()
         else:
-            return arc, arc.t_at_dist(dist_remaining)
+            return i, arc, arc.t_at_dist(dist_remaining)
+
+
+def interpolate_curvature(arcs, i, t):
+    if i < len(arcs) - 1:
+        start_c = arcs[i].curvature()
+        end_c = arcs[i + 1].curvature()
+        return start_c + t * (end_c - start_c)
+    else:
+        return arcs[i].curvature()
