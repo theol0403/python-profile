@@ -28,8 +28,8 @@ class Bot:
     # errors if wheeltrack == 0
     def move(self, left_vel, right_vel, dt):
 
-        # left_vel = np.clip(left_vel, -self.max_vel, self.max_vel)
-        # right_vel = np.clip(right_vel, -self.max_vel, self.max_vel)
+        left_vel = np.clip(left_vel, -self.max_vel, self.max_vel)
+        right_vel = np.clip(right_vel, -self.max_vel, self.max_vel)
 
         if left_vel == right_vel:
             new_x = self.pose.x + np.cos(self.pose.theta) * left_vel * dt
