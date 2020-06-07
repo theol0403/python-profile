@@ -9,7 +9,6 @@ class Bot:
         self.max_ang_vel = max_ang_vel
         self.pose = pose
 
-
     @staticmethod
     def max_vels_from_scales(rpm, wheel_diam, gearing, track):
         output_rpm = gearing * rpm
@@ -17,9 +16,10 @@ class Bot:
         ang_vel = 2 * lin_vel / track
         return lin_vel, ang_vel
 
-
     def max_lin_vel_at_curvature(self, curvature):
-        return (self.max_ang_vel * self.max_vel)/(curvature * self.max_vel + self.max_ang_vel)
+        return (self.max_ang_vel * self.max_vel) / (
+            curvature * self.max_vel + self.max_ang_vel
+        )
 
     # http://www.cs.columbia.edu/~allen/F15/NOTES/icckinematics.pdf
     # errors if wheeltrack == 0
