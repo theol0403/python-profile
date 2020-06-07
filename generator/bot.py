@@ -21,7 +21,7 @@ class Bot:
 
     def max_lin_vel_at_curvature(self, curvature):
         return (self.max_ang_vel * self.max_vel) / (
-            curvature * self.max_vel + self.max_ang_vel
+            np.abs(curvature) * self.max_vel + self.max_ang_vel
         )
 
     # http://www.cs.columbia.edu/~allen/F15/NOTES/icckinematics.pdf

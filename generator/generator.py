@@ -21,12 +21,13 @@ def generate(*, bot, path, dt, arc_num):
     while dist <= length:
         arc, t = arc_t_at_dist(arcs, dist)
         pos = arc.calc(t)
+        curvature = arc.curvature()
 
         vel = profile.v_at_d(dist)
+        max_linear_vel = bot.max_lin_vel_at_curvature(curvature)
 
-        curvature = arc.curvature()
+        vel = np.min([vel, max_linear_vel])
         angular_vel = vel * curvature
-        # max_linear_vel =
 
         dist += vel * dt
         trajectory.append(Step(pos, vel, angular_vel, curvature))
