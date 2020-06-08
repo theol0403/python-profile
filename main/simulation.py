@@ -1,4 +1,5 @@
-from main import *
+from main.__main__ import *
+import matplotlib.animation as animation
 
 x = [s.x for s in states]
 y = [s.y for s in states]

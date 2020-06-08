@@ -3,7 +3,6 @@ from path.point import Point
 from generator.bot import Bot
 from generator.generator import generate
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 from generator.plot_profile import *
 from pint import UnitRegistry
 
@@ -39,9 +38,3 @@ print(f"Time: {len(trajectory)*dt:.04}")
 print("")
 print(f"Position error: {pos_err:.05} meters")
 print(f"Angle error: {ang_err:.05} degrees")
-
-if __name__ == "__main__":
-    # show everything
-    plot_profile(trajectory, path, dt, wheel_speeds)
-    plt.gcf().set_tight_layout(True)
-    plt.show()
