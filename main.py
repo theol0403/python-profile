@@ -109,7 +109,12 @@ def animate(i):
 
 
 anim = animation.FuncAnimation(
-    plt.gcf(), animate, init_func=init, frames=len(trajectory), interval=10, blit=True,
+    plt.gcf(),
+    animate,
+    init_func=init,
+    frames=len(trajectory) + 50,
+    interval=10,
+    blit=True,
 )
 
 
