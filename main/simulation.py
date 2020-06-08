@@ -1,4 +1,5 @@
 from main.__main__ import *
+import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 x = [s.x for s in states]

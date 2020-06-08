@@ -2,8 +2,6 @@ from path.functions import *
 from path.point import Point
 from generator.bot import Bot
 from generator.generator import generate
-import matplotlib.pyplot as plt
-from generator.plot_profile import *
 from pint import UnitRegistry
 
 u = UnitRegistry()
