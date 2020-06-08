@@ -12,9 +12,7 @@ def time_generate():
 
 if __name__ == "__main__":
     number = 200
-    time = timeit(
-        time_generate, setup="from main.timer import time_generate", number=number
-    )
+    time = timeit(time_generate, number=number)
     print("")
     print(f"{number} iterations took {time:.4} seconds")
     print(f"Average time: {time/number*1000:.5} ms")
