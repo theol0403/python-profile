@@ -92,7 +92,7 @@ plt.gcf().set_tight_layout(True)
 plt.show()
 
 fig = plt.figure()
-ax = plt.axes(xlim=(path.calc(0).x, 2), ylim=(path.calc(0).y, 2))
+ax = plt.axes(xlim=(np.amin((x)), np.amax(x)), ylim=(np.amin(y), np.amax(y)))
 line, = ax.plot([], [], lw=2)
 
 
