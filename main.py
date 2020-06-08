@@ -7,16 +7,19 @@ import matplotlib.animation as animation
 from pint import UnitRegistry
 
 u = UnitRegistry()
-track = (2 * u.feet).to(u.meter).m
+track = (11 * u.inch).to(u.meter).m
 diam = (4 * u.inch).to(u.meter).m
+weight = (20 * u.pounds).to(u.kilogram).m
 
-max_lin, max_ang = Bot.max_vels_from_scales(200, diam, track)
-
+path = new_bezier([Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0)])
 # path = new_bezier([Point(0, 0), Point(1, 0), Point(2, 3), Point(3, 3)])
 
 bot = Bot(
-    track=track, max_vel=max_lin, max_accel=2, max_ang_vel=max_ang, pose=path.calc(0)
+    track=track, pose=path.calc(0)
 )
+bot.set_theoretical_maxes(weight, 200*np.sqrt(2), diam)
+print(f"Max velocity: {bot.max_vel}\nMax acceleration: {bot.max_accel}")
+
 dt = 0.01
 
 # generate the profile
@@ -89,7 +92,7 @@ plt.gcf().set_tight_layout(True)
 plt.show()
 
 fig = plt.figure()
-ax = plt.axes(xlim=(path.calc(0).x, path.calc(1).x+1), ylim=(path.calc(0).y, path.calc(1).y+1))
+ax = plt.axes(xlim=(path.calc(0).x, 2), ylim=(path.calc(0).y, 2))
 line, = ax.plot([], [], lw=2)
 
 
