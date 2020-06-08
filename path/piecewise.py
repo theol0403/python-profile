@@ -11,6 +11,13 @@ class Piecewise(Path):
     def interpolate(self, steps):
         return sum((p.interpolate(steps) for p in self.arr), start=[])
 
+    def calc(self, t):
+        i = int(np.floor(t * len(self.arr)))
+        if i == len(self.arr):
+            i = len(self.arr) - 1
+        x = t * len(self.arr) - i
+        return self.arr[i].calc(x)
+
     # create a piecewise hermite path from a list of points
     def new_hermite(hermite, points):
         path = Piecewise()
