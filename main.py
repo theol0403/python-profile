@@ -12,10 +12,10 @@ diam = (4 * u.inch).to(u.meter).m
 weight = (20 * u.pounds).to(u.kilogram).m
 
 path = new_bezier([Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0)])
-# path = new_bezier([Point(0, 0), Point(1, 0), Point(2, 3), Point(3, 3)])
+# path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
 
 bot = Bot(track=track, pose=path.calc(0))
-bot.set_theoretical_maxes(weight, 200 * np.sqrt(2), diam)
+bot.set_theoretical_maxes(weight, 200, diam)
 print(f"Max velocity: {bot.max_vel}\nMax acceleration: {bot.max_accel}")
 
 dt = 0.01
@@ -103,9 +103,7 @@ def animate(i):
     return (line,)
 
 
-anim = animation.FuncAnimation(
-    plt.gcf(), animate, frames=len(trajectory) + 50, interval=10, blit=True,
-)
+animation.FuncAnimation(plt.gcf(), animate, frames=len(x) + 50, interval=10, blit=True)
 
 
 plt.show()
