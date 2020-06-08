@@ -17,7 +17,7 @@ path = new_bezier([Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0)])
 
 # define bot
 bot = Bot(track=track, pose=path.calc(0))
-bot.set_theoretical_maxes(weight, 200, diam)
+bot.set_theoretical_maxes(weight, 200, diam, 4)
 print(f"Max velocity: {bot.max_vel}")
 print(f"Max acceleration: {bot.max_accel}")
 
