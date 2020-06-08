@@ -37,4 +37,11 @@ def generate(*, bot, path, dt, arc_num):
 
     # last step is 0
     # trajectory.append(Step(arcs[-1].calc(1), 0, 0, 0))
-    return trajectory, profile, length, arcs
+
+    # find wheel speeds
+    lin_vel = np.array([step.v for step in trajectory])
+    ang_vel = np.array([step.w for step in trajectory])
+    left = lin_vel - (ang_vel * bot.track) / 2
+    right = lin_vel + (ang_vel * bot.track) / 2
+
+    return trajectory, profile, length, arcs, dt, (left, right)
