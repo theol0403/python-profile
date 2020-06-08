@@ -12,10 +12,13 @@ class Piecewise(Path):
         return sum((p.interpolate(steps) for p in self.arr), start=[])
 
     def calc(self, t):
-        i = int(np.floor(t * len(self.arr)))
-        if i == len(self.arr):
-            i = len(self.arr) - 1
-        x = t * len(self.arr) - i
+        # split up t into arc_count sections
+        c = len(self.arr)
+        i = int(t * c)  # which arc to use
+        if i == c:
+            # use t = 1 for the last arc
+            i = c - 1
+        x = t * c - i  # which t to use
         return self.arr[i].calc(x)
 
     # create a piecewise hermite path from a list of points
