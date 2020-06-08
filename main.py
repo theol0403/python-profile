@@ -3,6 +3,7 @@ from path.point import Point
 from generator.bot import Bot
 from generator.generator import generate
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 from pint import UnitRegistry
 
 u = UnitRegistry()
@@ -83,4 +84,23 @@ print(f"Position error: {pos_err:.05} meters")
 print(f"Angle error: {ang_err:.05} degrees")
 
 plt.gcf().set_tight_layout(True)
+plt.show()
+
+fig = plt.figure()
+ax = plt.axes(xlim=(path.calc(0).x, path.calc(1).x+1), ylim=(path.calc(0).y, path.calc(1).y+1))
+line, = ax.plot([], [], lw=2)
+
+
+def init():
+    line.set_data([], [])
+    return line,
+
+
+def animate(i):
+    line.set_data(x[:i], y[:i])
+    return line,
+
+
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames=len(trajectory), interval=10, blit=True)
+
 plt.show()
