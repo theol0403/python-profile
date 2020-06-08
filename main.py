@@ -98,23 +98,13 @@ ax.set_ylim(ymin - 0.1 * (ymax - ymin), ymax + 0.1 * (ymax - ymin))
 (line,) = ax.plot([], [], lw=2)
 
 
-def init():
-    line.set_data([], [])
-    return (line,)
-
-
 def animate(i):
     line.set_data(x[:i], y[:i])
     return (line,)
 
 
 anim = animation.FuncAnimation(
-    plt.gcf(),
-    animate,
-    init_func=init,
-    frames=len(trajectory) + 50,
-    interval=10,
-    blit=True,
+    plt.gcf(), animate, frames=len(trajectory) + 50, interval=10, blit=True,
 )
 
 
