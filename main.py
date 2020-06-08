@@ -12,10 +12,12 @@ diam = (4 * u.inch).to(u.meter).m
 
 max_lin, max_ang = Bot.max_vels_from_scales(200, diam, track)
 
-bot = Bot(track=track, max_vel=max_lin, max_accel=1, max_ang_vel=max_ang)
-dt = 0.01
+# path = new_bezier([Point(0, 0), Point(1, 0), Point(2, 3), Point(3, 3)])
 
-path = new_bezier([Point(0, 0), Point(1, 0), Point(2, 3), Point(3, 3)])
+bot = Bot(
+    track=track, max_vel=max_lin, max_accel=2, max_ang_vel=max_ang, pose=path.calc(0)
+)
+dt = 0.01
 
 # generate the profile
 trajectory, profile, length, arcs = generate(bot=bot, path=path, dt=dt, arc_num=50)
