@@ -16,8 +16,8 @@ class Bot:
         lin_vel, ang_vel = Bot.max_vels_from_scales(rpm, wheel_diam, self.track)
         self.max_vel = lin_vel
         self.max_ang_vel = ang_vel
-        # v5 100rpm motors have 2.1Nm of torque
-        torque = (2.1*num_motors)/(rpm/100.0)
+        # v5 100rpm motors have 2.1Nm of torque at stall
+        torque = (2.1*num_motors*0.15)/(rpm/100.0)
         lin_force = torque/(wheel_diam/2)
         self.max_accel = lin_force/weight
 

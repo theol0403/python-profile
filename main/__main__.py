@@ -14,7 +14,7 @@ path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
 
 # define bot
 bot = Bot(track=track, pose=path.calc(0))
-bot.set_theoretical_maxes(weight, 200, diam, 1)
+bot.set_theoretical_maxes(weight, 200, diam, 4)
 
 # generate the profile
 trajectory, profile, length, arcs, dt, wheel_speeds = generate(
