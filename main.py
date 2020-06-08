@@ -12,12 +12,10 @@ diam = (4 * u.inch).to(u.meter).m
 weight = (20 * u.pounds).to(u.kilogram).m
 
 path = new_bezier([Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0)])
-# path = new_bezier([Point(0, 0), Point(1, 0), Point(2, 3), Point(3, 3)])
+# path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
 
-bot = Bot(
-    track=track, pose=path.calc(0)
-)
 bot.set_theoretical_maxes(weight, 200, diam, 4)
+bot = Bot(track=track, pose=path.calc(0))
 print(f"Max velocity: {bot.max_vel}\nMax acceleration: {bot.max_accel}")
 
 dt = 0.01
@@ -91,21 +89,21 @@ print(f"Angle error: {ang_err:.05} degrees")
 plt.gcf().set_tight_layout(True)
 plt.show()
 
-fig = plt.figure()
-ax = plt.axes(xlim=(np.amin((x)), np.amax(x)), ylim=(np.amin(y), np.amax(y)))
-line, = ax.plot([], [], lw=2)
-
-
-def init():
-    line.set_data([], [])
-    return line,
+ax = plt.axes()
+plt.grid()
+xmin, xmax = np.min(x), np.max(x)
+ymin, ymax = np.min(y), np.max(y)
+ax.set_xlim(xmin - 0.1 * (xmax - xmin), xmax + 0.1 * (xmax - xmin))
+ax.set_ylim(ymin - 0.1 * (ymax - ymin), ymax + 0.1 * (ymax - ymin))
+(line,) = ax.plot([], [], lw=2)
 
 
 def animate(i):
     line.set_data(x[:i], y[:i])
-    return line,
+    return (line,)
 
 
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames=len(trajectory), interval=10, blit=True)
+animation.FuncAnimation(plt.gcf(), animate, frames=len(x) + 50, interval=10, blit=True)
+
 
 plt.show()
