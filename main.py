@@ -14,8 +14,8 @@ weight = (20 * u.pounds).to(u.kilogram).m
 path = new_bezier([Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0)])
 # path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
 
-bot.set_theoretical_maxes(weight, 200, diam, 4)
 bot = Bot(track=track, pose=path.calc(0))
+bot.set_theoretical_maxes(weight, 200, diam, 4)
 print(f"Max velocity: {bot.max_vel}\nMax acceleration: {bot.max_accel}")
 
 dt = 0.01
