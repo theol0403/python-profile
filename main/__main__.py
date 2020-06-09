@@ -1,4 +1,5 @@
 from path.functions import *
+from path.arc import Interpolator
 from path.point import Point
 from generator.bot import Bot
 from generator.generator import generate
@@ -10,16 +11,16 @@ diam = (4 * u.inch).to(u.meter).m
 weight = (20 * u.pounds).to(u.kilogram).m
 
 # path = new_bezier([Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0)])
-# path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
-path = new_bezier(
-    [
-        Point(1.0, 0.0),
-        Point(0.6, 0.0),
-        Point(1.0, 1.0),
-        Point(0.0, 0.6),
-        Point(0.0, 1.0),
-    ]
-)
+path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
+# path = new_bezier(
+#     [
+#         Point(1.0, 0.0),
+#         Point(0.6, 0.0),
+#         Point(1.0, 1.0),
+#         Point(0.0, 0.6),
+#         Point(0.0, 1.0),
+#     ]
+# )
 
 # define bot
 bot = Bot(track=track, pose=path.calc(0))
@@ -27,7 +28,7 @@ bot.set_theoretical_maxes(weight, 200, diam, 4)
 
 # generate the profile
 trajectory, profile, length, arcs, dt, wheel_speeds = generate(
-    bot=bot, path=path, dt=0.01, arc_num=50
+    bot=bot, path=path, dt=0.01, arc_num=30, interpolator=Interpolator.midpoint,
 )
 
 # run the bot through all the steps

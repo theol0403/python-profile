@@ -1,4 +1,5 @@
 from generator.trapezoidal import Trapezoidal
+from path.arc import Interpolator
 from path.arc import *
 
 
@@ -11,7 +12,7 @@ class Step:
         self.curvature_lerp = curvature_lerp
 
 
-def generate(*, bot, path, dt, arc_num):
+def generate(*, bot, path, dt, arc_num, interpolator=Interpolator.none):
     arcs = fit_arcs(path, arc_num).arr
     length = sum(a.length() for a in arcs)
     profile = Trapezoidal(bot, length)
@@ -24,7 +25,7 @@ def generate(*, bot, path, dt, arc_num):
         pos = arc.calc(t)
 
         curvature = arc.curvature()
-        curvature_lerp = interpolate_curvature(arcs, i, t)
+        curvature_lerp = interpolator(arcs, i, t)
 
         vel = profile.v_at_d(dist)
         max_linear_vel = bot.max_lin_vel_at_curvature(curvature_lerp)

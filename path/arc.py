@@ -73,18 +73,36 @@ def arc_t_at_dist(arcs, dist):
             return i, arc, arc.t_at_dist(dist_remaining)
 
 
-def interpolate_curvature(arcs, i, t):
-    start = arcs[i].curvature()
-    end = arcs[i].curvature()
-    if i > 0:
-        start = (arcs[i].curvature() + arcs[i - 1].curvature()) / 2
-    if i < len(arcs) - 1:
-        end = (arcs[i].curvature() + arcs[i + 1].curvature()) / 2
-    return start + t * (end - start)
+class Interpolator:
+    def none(arcs, i, t):
+        return arcs[i].curvature()
 
-    # if i < len(arcs) - 1:
-    #     start_c = arcs[i].curvature()
-    #     end_c = arcs[i + 1].curvature()
-    #     return start_c + t * (end_c - start_c)
-    # else:
-    #     return arcs[i].curvature()
+    def midpoint(arcs, i, t):
+        start = arcs[i].curvature()
+        end = arcs[i].curvature()
+        if i > 0:
+            start = (arcs[i].curvature() + arcs[i - 1].curvature()) / 2
+        if i < len(arcs) - 1:
+            end = (arcs[i].curvature() + arcs[i + 1].curvature()) / 2
+        return start + t * (end - start)
+
+    def left(arcs, i, t):
+        if i < len(arcs) - 1:
+            start_c = arcs[i].curvature()
+            end_c = arcs[i + 1].curvature()
+            return start_c + t * (end_c - start_c)
+        else:
+            return arcs[i].curvature()
+
+    def right(arcs, i, t):
+        if i > 0:
+            start_c = arcs[i - 1].curvature()
+            end_c = arcs[i].curvature()
+            return start_c + t * (end_c - start_c)
+        else:
+            return arcs[i].curvature()
+
+    def trapezoidal(arcs, i, t):
+        left = Interpolator.left(arcs, i, t)
+        right = Interpolator.right(arcs, i, t)
+        return (left + right) / 2
