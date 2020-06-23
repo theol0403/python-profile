@@ -34,8 +34,8 @@ trajectory, profile, length, arcs, dt, wheel_speeds = generate(
 # run the bot through all the steps
 states = bot.simulate(np.array(wheel_speeds), dt)
 
-pos_err = bot.pose.dist(path.calc(1))
-coord_err = bot.pose - path.calc(1)
+pos_err = bot.pose.dist(path.calc(1)) * 100
+coord_err = (bot.pose - path.calc(1)) * 100
 ang_err = (bot.pose.theta - path.calc(1).theta) * 180 / np.pi
 
 print(f"Velocity: {bot.max_vel:.4}")
@@ -45,7 +45,7 @@ print("")
 print(f"Length: {length:.4}")
 print(f"Time: {len(trajectory)*dt:.4}")
 print("")
-print(f"Position error: {pos_err:.5} meters")
-print(f"X error: {coord_err.x:.3} meters")
-print(f"Y error: {coord_err.y:.3} meters")
+print(f"Position error: {pos_err:.5} cm")
+print(f"X error: {coord_err.x:.3} cm")
+print(f"Y error: {coord_err.y:.3} cm")
 print(f"Angle error: {ang_err:.5} degrees")

@@ -34,10 +34,10 @@ class Point:
         return Point(self.x - other.x, self.y - other.y, self.theta - other.theta)
 
     def __mul__(self, other):
-        return Point(self.x * other.x, self.y * other.y, self.theta * other.theta)
+        return Point(self.x * other, self.y * other, self.theta * other)
 
     def __div__(self, other):
-        return Point(self.x / other.x, self.y / other.y, self.theta / other.theta)
+        return Point(self.x / other, self.y / other, self.theta / other)
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y and self.theta == other.theta
