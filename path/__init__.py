@@ -23,12 +23,12 @@ class Path:
         return l
 
     def t_at_dist_travelled(self, t, dist):
-        s = 0
-        while s < dist:
-            s += self.calc(t).dist(self.calc(t + 0.0001))
-            t += 0.0001
-        return t
-        # return t + dist / np.abs(self.derivative(t))
+        # s = 0
+        # while s < dist:
+        #     s += self.calc(t).dist(self.calc(t + 0.0001))
+        #     t += 0.0001
+        # return t
+        return t + dist / np.abs(self.derivative(t))
 
     def plot(self, title):
         points = self.interpolate(200)
