@@ -32,7 +32,7 @@ def generate(*, bot, path, dt):
 
         d_dist = vel * dt
         dist += d_dist
-        t = path.t_at_dist(t, d_dist)
+        t = path.t_at_dist_travelled(t, d_dist)
         trajectory.append(Step(pos, vel, angular_vel, curvature))
 
     # last step is 0
