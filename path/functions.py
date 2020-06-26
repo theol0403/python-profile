@@ -35,6 +35,22 @@ class Bezier(Function):
             )
         )
 
+    def calc_d_2(self, x):
+        order = len(self.ctrls) - 1
+        return sum(
+            map(
+                lambda power: basis(order - 2, power, x)
+                * order
+                * (order - 1)
+                * (
+                    self.ctrls[power + 2]
+                    - 2 * self.ctrls[power + 1]
+                    + self.ctrls[power]
+                ),
+                range(order - 1),
+            )
+        )
+
 
 def basis(n, k, x):
     return comb(n, k) * (1.0 - x) ** (n - k) * x ** k
