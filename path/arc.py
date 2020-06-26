@@ -19,21 +19,6 @@ class Arc(Path):
         self.rotate = start.angle_to(end) - self.theta / 2.0
         self.origin = start
 
-    def dist(self, t):
-        return self.s * t
-
-    def t_at_dist(self, d):
-        return d / self.s
-
-    def length(self):
-        return self.s
-
-    def curvature(self):
-        if np.isinf(self.r):
-            return 0
-        else:
-            return 1.0 / self.r
-
     def calc(self, t):
         x, y = 0, 0
         if np.isinf(self.r):
@@ -51,6 +36,21 @@ class Arc(Path):
         y_r += self.origin.y
 
         return Point(x_r, y_r, self.rotate + self.theta * t)
+
+    def curvature(self):
+        if np.isinf(self.r):
+            return 0
+        else:
+            return 1.0 / self.r
+
+    def length(self):
+        return self.s
+
+    def dist(self, t):
+        return self.s * t
+
+    def t_at_dist(self, d):
+        return d / self.s
 
 
 def fit_arcs(path, num):
