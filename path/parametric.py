@@ -29,12 +29,10 @@ class Parametric(Path):
     def derivative(self, t):
         y = self.y.calc_d(t)
         x = self.x.calc_d(t)
-        if y == 0.0:
-            return x
-        return x / y
+        return y / x
 
     def t_at_dist(self, t, dist):
-        return t + dist / self.derivative(t)
+        return t + dist / np.abs(self.derivative(t))
 
     def length(self):
         l = 0
