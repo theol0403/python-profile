@@ -18,7 +18,7 @@ def generate(*, bot, path, dt):
     trajectory = []
 
     dist = profile.v_at_t(dt) * dt
-    t = 0.0001
+    t = 0
     while dist <= length:
         pos = path.calc(t)
 

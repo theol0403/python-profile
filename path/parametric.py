@@ -32,7 +32,12 @@ class Parametric(Path):
         return y / x
 
     def t_at_dist(self, t, dist):
-        return t + dist / np.abs(self.derivative(t))
+        s = 0
+        while s < dist:
+            s += self.calc(t).dist(self.calc(t + 0.0001))
+            t += 0.0001
+        return t
+        # return t + dist / np.abs(self.derivative(t))
 
     def length(self):
         l = 0

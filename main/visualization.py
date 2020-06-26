@@ -40,7 +40,6 @@ plt.plot(time_range, c)
 plt.xlabel("Time (s)")
 plt.ylabel("Curvature (1/r)")
 plt.grid()
-plt.legend()
 
 # velocity
 plt.subplot(2, 3, 4)
