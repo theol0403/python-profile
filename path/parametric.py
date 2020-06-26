@@ -25,3 +25,19 @@ class Parametric(Path):
         x_d_2 = self.x.calc_d_2(t)
         y_d_2 = self.y.calc_d_2(t)
         return (x_d * y_d_2 - y_d * x_d_2) / np.sqrt(x_d ** 2 + y_d ** 2) ** 3
+
+    def derivative(self, t):
+        y = self.y.calc_d(t)
+        x = self.x.calc_d(t)
+        if y == 0.0:
+            return x
+        return x / y
+
+    def t_at_dist(self, t, dist):
+        return t + dist / self.derivative(t)
+
+    def length(self):
+        l = 0
+        for t in np.arange(0, 1, 0.01):
+            l += self.calc(t).dist(self.calc(t + 0.01))
+        return l

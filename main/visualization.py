@@ -35,10 +35,7 @@ plt.subplot(2, 3, 3)
 plt.title("Curvature")
 
 c = [step.curvature for step in trajectory]
-plt.plot(time_range, c, label="Raw")
-
-c = [step.curvature_lerp for step in trajectory]
-plt.plot(time_range, c, label="Interpolated")
+plt.plot(time_range, c)
 
 plt.xlabel("Time (s)")
 plt.ylabel("Curvature (1/r)")

@@ -2,7 +2,7 @@ from path.functions import *
 from path.arc import Interpolator
 from path.point import Point
 from generator.bot import Bot
-from generator.generator import generate
+from generator.generator_2 import generate
 from pint import UnitRegistry
 
 u = UnitRegistry()
@@ -27,8 +27,8 @@ bot = Bot(track=track, pose=path.calc(0))
 bot.set_theoretical_maxes(weight, 200, diam, 4)
 
 # generate the profile
-trajectory, profile, length, arcs, dt, wheel_speeds = generate(
-    bot=bot, path=path, dt=0.01, arc_num=30, interpolator=Interpolator.midpoint,
+trajectory, profile, length, dt, wheel_speeds = generate(
+    bot=bot, path=path, dt=0.01
 )
 
 # run the bot through all the steps
