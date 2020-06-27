@@ -78,6 +78,12 @@ class Hermite(Function):
         next(it)
         return sum(map(lambda enum: x ** (enum[0] - 1) * enum[0] * enum[1], it))
 
+    def calc_d_2(self, x):
+        it = enumerate(self.coeffs)
+        next(it)
+        next(it)
+        return sum(map(lambda enum: x ** (enum[0] - 2) * enum[0] * enum[1], it))
+
 
 class CubicHermite(Hermite):
     def __init__(self, start, start_t, end, end_t):

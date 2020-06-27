@@ -16,9 +16,9 @@ def generate(*, bot, path, dt):
 
     trajectory = []
 
-    dist = profile.v_at_t(dt) * dt
     t = 0
-    theta = path.calc(0).theta
+    theta = path.calc(t).theta
+    dist = profile.v_at_t(dt) * dt
     while dist <= length and t < 1.0:
         pos = path.calc(t)
         curvature = path.curvature(t)
