@@ -17,21 +17,15 @@ def generate(*, bot, path, dt):
     trajectory = []
 
     t = 0
-    theta = path.calc(t).theta
-    dist = profile.v_at_t(dt) * dt
+    pos = path.calc(0)
+    theta = pos.theta
+    curvature = path.curvature(0)
+    vel = profile.v_at_t(dt)
+    dist = 0
     while dist <= length and t < 1.0:
-        pos = path.calc(t)
-        curvature = path.curvature(t)
-
-        vel = profile.v_at_d(dist)
-        vel = np.min([vel, bot.max_lin_vel_at_curvature(curvature)])
-
         t_n = path.t_at_dist_travelled(t, vel * dt)
-
         pos_new = path.calc(t_n)
-        angular_vel = (pos_new.theta - theta) / dt
-        theta += angular_vel * dt
-
+        angular_vel = (pos_new.theta - pos.theta) / dt
         vel = np.min([vel, bot.max_lin_vel_at_angular_vel(angular_vel)])
 
         d_dist = vel * dt
@@ -39,6 +33,11 @@ def generate(*, bot, path, dt):
         dist += d_dist
 
         trajectory.append(Step(pos, vel, angular_vel, curvature))
+
+        pos = pos_new
+        vel = profile.v_at_d(dist)
+        curvature = path.curvature(t)
+        vel = np.min([vel, bot.max_lin_vel_at_curvature(curvature)])
 
     # find wheel speeds
     lin_vel = np.array([step.v for step in trajectory])
