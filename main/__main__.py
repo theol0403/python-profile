@@ -1,8 +1,7 @@
 from path.functions import *
-from path.arc import Interpolator
 from path.point import Point
 from generator.bot import Bot
-from generator.generator_2 import generate
+from generator.generator import generate
 from pint import UnitRegistry
 
 u = UnitRegistry()
