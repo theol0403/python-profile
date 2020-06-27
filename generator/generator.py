@@ -19,7 +19,7 @@ def generate(*, bot, path, dt):
     dist = profile.v_at_t(dt) * dt
     t = 0
     theta = path.calc(0).theta
-    while dist <= length:
+    while dist <= length and t < 1.0:
         pos = path.calc(t)
         curvature = path.curvature(t)
 
