@@ -25,7 +25,6 @@ def generate(*, bot, path, dt):
 
         vel = profile.v_at_d(dist)
         max_linear_vel = bot.max_lin_vel_at_curvature(curvature)
-
         vel = np.min([vel, max_linear_vel])
         angular_vel = vel * curvature
 
@@ -34,9 +33,6 @@ def generate(*, bot, path, dt):
         t = path.t_at_dist_travelled(t, d_dist)
 
         trajectory.append(Step(pos, vel, angular_vel, curvature))
-
-    # last step is 0
-    # trajectory.append(Step(arcs[-1].calc(1), 0, 0, 0))
 
     # find wheel speeds
     lin_vel = np.array([step.v for step in trajectory])
