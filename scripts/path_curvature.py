@@ -15,7 +15,7 @@ path.plot("")
 plt.subplot(1, 2, 2)
 plt.title("Curvature")
 
-y = [path.curvature(t/100) for t in range(101)]
+y = [path.curvature(t / 100) for t in range(101)]
 plt.plot(y)
 plt.grid(True)
 

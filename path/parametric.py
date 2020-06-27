@@ -28,4 +28,3 @@ class Parametric(Path):
         x_d_2 = self.x.calc_d_2(t)
         y_d_2 = self.y.calc_d_2(t)
         return (x_d * y_d_2 - y_d * x_d_2) / np.sqrt(x_d ** 2 + y_d ** 2) ** 3
-

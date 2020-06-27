@@ -1,6 +1,5 @@
 from generator.trapezoidal import Trapezoidal
-from path.arc import Interpolator
-from path.arc import *
+import numpy as np
 
 
 class Step:
