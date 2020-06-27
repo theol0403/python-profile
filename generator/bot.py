@@ -17,9 +17,9 @@ class Bot:
         self.max_vel = lin_vel
         self.max_ang_vel = ang_vel
         # v5 100rpm motors have 2.1Nm of torque at stall
-        torque = (2.1*num_motors*0.15)/(rpm/100.0)
-        lin_force = torque/(wheel_diam/2)
-        self.max_accel = lin_force/weight
+        torque = (2.1 * num_motors * 0.15) / (rpm / 100.0)
+        lin_force = torque / (wheel_diam / 2)
+        self.max_accel = lin_force / weight
 
     @staticmethod
     def max_vels_from_scales(rpm, wheel_diam, track):
@@ -31,6 +31,10 @@ class Bot:
         return (self.max_ang_vel * self.max_vel) / (
             np.abs(curvature) * self.max_vel + self.max_ang_vel
         )
+
+    def max_lin_vel_at_angular_vel(self, angular_vel):
+        return self.max_vel - (self.max_vel * np.abs(angular_vel)) / self.max_ang_vel
+        # return self.max_vel * (1.0 - (np.abs(angular_vel) / self.max_ang_vel))
 
     # http://www.cs.columbia.edu/~allen/F15/NOTES/icckinematics.pdf
     # errors if wheeltrack == 0
