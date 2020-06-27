@@ -35,12 +35,12 @@ pos_err = bot.pose.dist(path.calc(1)) * 100
 coord_err = (bot.pose - path.calc(1)) * 100
 ang_err = (bot.pose.theta - path.calc(1).theta) * 180 / np.pi
 
-print(f"Velocity: {bot.max_vel:.4}")
-print(f"Acceleration: {bot.max_accel:.4}")
-print(f"Angular Velocity: {bot.max_ang_vel*180/np.pi:.4}")
+print(f"Velocity: {bot.max_vel:.4} m/s")
+print(f"Acceleration: {bot.max_accel:.4} m/s2")
+print(f"Angular Velocity: {bot.max_ang_vel*180/np.pi:.4} deg/s")
 print("")
-print(f"Length: {length:.4}")
-print(f"Time: {len(trajectory)*dt:.4}")
+print(f"Length: {length:.4} m")
+print(f"Time: {len(trajectory)*dt:.4} s")
 print("")
 print(f"Position error: {pos_err:.5} cm")
 print(f"X error: {coord_err.x:.3} cm")
