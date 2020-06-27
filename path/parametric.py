@@ -19,7 +19,7 @@ class Parametric(Path):
 
         return Point(x, y, np.arctan2(y1, x1))
 
-    def derivative(self, t):
+    def velocity(self, t):
         return np.sqrt(self.x.calc_d(t) ** 2 + self.y.calc_d(t) ** 2)
 
     def curvature(self, t):

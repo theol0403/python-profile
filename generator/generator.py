@@ -18,10 +18,9 @@ def generate(*, bot, path, dt):
     trajectory = []
 
     dist = profile.v_at_t(dt) * dt
-    t = 0.0001
+    t = 0
     while dist <= length:
         pos = path.calc(t)
-
         curvature = path.curvature(t)
 
         vel = profile.v_at_d(dist)
@@ -33,6 +32,7 @@ def generate(*, bot, path, dt):
         d_dist = vel * dt
         dist += d_dist
         t = path.t_at_dist_travelled(t, d_dist)
+
         trajectory.append(Step(pos, vel, angular_vel, curvature))
 
     # last step is 0

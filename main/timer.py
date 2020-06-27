@@ -11,7 +11,7 @@ def time_generate():
 
 
 if __name__ == "__main__":
-    number = 200
+    number = 100
     time = timeit(time_generate, number=number)
     print("")
     print(f"{number} iterations took {time:.4} seconds")
