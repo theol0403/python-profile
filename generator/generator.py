@@ -18,6 +18,7 @@ def generate(*, bot, path, dt):
 
     dist = profile.v_at_t(dt) * dt
     t = 0
+    theta = path.calc(0).theta
     while dist <= length:
         pos = path.calc(t)
         curvature = path.curvature(t)
@@ -28,7 +29,8 @@ def generate(*, bot, path, dt):
         t_n = path.t_at_dist_travelled(t, vel * dt)
 
         pos_new = path.calc(t_n)
-        angular_vel = (pos_new.theta - pos.theta) / dt
+        angular_vel = (pos_new.theta - theta) / dt
+        theta += angular_vel * dt
 
         vel = np.min([vel, bot.max_lin_vel_at_angular_vel(angular_vel)])
 
