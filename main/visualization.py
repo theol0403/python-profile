@@ -11,7 +11,7 @@ plt.title("Path")
 path.plot("Path")
 x = [step.point.x for step in trajectory]
 y = [step.point.y for step in trajectory]
-plt.plot(x, y, label="Arcs")
+plt.plot(x, y, label="Trajectory")
 
 # plt.grid() # grid in path.plot
 plt.xlabel("x (m)")

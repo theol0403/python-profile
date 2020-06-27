@@ -27,9 +27,7 @@ bot = Bot(track=track, pose=path.calc(0))
 bot.set_theoretical_maxes(weight, 200, diam, 4)
 
 # generate the profile
-trajectory, profile, length, dt, wheel_speeds = generate(
-    bot=bot, path=path, dt=0.01
-)
+trajectory, profile, length, dt, wheel_speeds = generate(bot=bot, path=path, dt=0.01)
 
 # run the bot through all the steps
 states = bot.simulate(np.array(wheel_speeds), dt)
