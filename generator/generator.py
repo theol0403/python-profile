@@ -20,21 +20,24 @@ def generate(*, bot, path, dt):
     t = 0
     dist = 0
     pos = path.calc(t)
-    curvature = path.curvature(t)
     vel = profile.v_at_t(dt)
     while dist <= length and t <= 1.0:
-        # project where along the path we will be after dt, given last velocity
-        t_n = path.t_at_dist_travelled(t, vel * dt)
+        # limit velocity according to approximation of the curvature during the next timeslice
+        curvature = path.curvature(t)
+        vel_max = np.min([vel, bot.max_lin_vel_at_curvature(curvature)])
+        # project where along the path we will be after dt, given approximate velocity
+        t_n = path.t_at_dist_travelled(t, vel_max * dt)
         pos_new = path.calc(t_n)
+
         # find out how fast we need to turn to achieve change in theta to reach next point in dt
         angular_vel = (pos_new.theta - pos.theta) / dt
-        # limit velocity according to angular velocity
+        # limit profiled velocity to angular velocity
         vel = np.min([vel, bot.max_lin_vel_at_angular_vel(angular_vel)])
 
         # calculate distance traveled
         d_dist = vel * dt
         dist += d_dist
-        # calculate where along the path we will actually be
+        # calculate where along the path we will be at the end of the timeslice
         t = path.t_at_dist_travelled(t, d_dist)
 
         # save trajectory
@@ -42,11 +45,8 @@ def generate(*, bot, path, dt):
 
         # update new position
         pos = pos_new
-        curvature = path.curvature(t)
         # calculate new velocity
         vel = profile.v_at_d(dist)
-        # limit velocity according to guess of the curvature of the next timeslice
-        vel = np.min([vel, bot.max_lin_vel_at_curvature(curvature)])
 
     # find wheel speeds
     lin_vel = np.array([step.v for step in trajectory])
