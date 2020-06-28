@@ -3,11 +3,12 @@ import numpy as np
 
 
 class Step:
-    def __init__(self, point, v, w, curvature):
+    def __init__(self, point, v, w, curvature, p_vel):
         self.point = point
         self.v = v
         self.w = w
         self.curvature = curvature
+        self.p_vel = p_vel
 
 
 def generate(*, bot, path, dt):
@@ -22,6 +23,7 @@ def generate(*, bot, path, dt):
     pos = path.calc(t)
     vel = profile.v_at_t(dt)
     while dist <= length and t <= 1.0:
+        p_vel = vel
         # limit velocity according to approximation of the curvature during the next timeslice
         curvature = path.curvature(t)
         vel_max = np.min([vel, bot.max_lin_vel_at_curvature(curvature)])
@@ -41,7 +43,7 @@ def generate(*, bot, path, dt):
         t = path.t_at_dist_travelled(t, d_dist)
 
         # save trajectory
-        trajectory.append(Step(pos, vel, angular_vel, curvature))
+        trajectory.append(Step(pos, vel, angular_vel, curvature, p_vel))
 
         # update new position
         pos = pos_new

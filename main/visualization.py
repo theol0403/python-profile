@@ -45,12 +45,15 @@ plt.grid()
 plt.subplot(2, 3, 4)
 plt.title("Velocity")
 
+v = [step.p_vel for step in trajectory]
+plt.plot(time_range, v, label="Raw")
 v = [step.v for step in trajectory]
-plt.plot(time_range, v)
+plt.plot(time_range, v, label="Limited")
 
 plt.xlabel("Time (s)")
 plt.ylabel("Velocity (m/s)")
 plt.grid()
+plt.legend()
 
 # angular velocity
 plt.subplot(2, 3, 5)
