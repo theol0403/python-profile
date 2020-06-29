@@ -43,4 +43,3 @@ class Parametric(Path):
 
     def velocity(self, t):
         return np.sqrt(self.x.calc_d(t) ** 2 + self.y.calc_d(t) ** 2)
-

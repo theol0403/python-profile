@@ -58,11 +58,11 @@ plt.legend()
 plt.subplot(2, 3, 5)
 plt.title("Angular Velocity")
 
-w = [step.w * 180 / np.pi for step in trajectory]
+w = [step.w for step in trajectory]
 plt.plot(time_range, w)
 
 plt.xlabel("Time (s)")
-plt.ylabel("Angular Velocity (deg/s)")
+plt.ylabel("Angular Velocity (rad/s)")
 plt.grid()
 
 # wheel speeds
