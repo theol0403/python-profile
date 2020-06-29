@@ -17,39 +17,42 @@ class Function:
 class Bezier(Function):
     def __init__(self, ctrls):
         self.ctrls = ctrls
+        self.order = len(ctrls) - 1
 
     def calc(self, x):
-        order = len(self.ctrls) - 1
-        return sum(
-            map(lambda enum: basis(order, enum[0], x) * enum[1], enumerate(self.ctrls))
-        )
+        def calc_ctrl(i, ctrl):
+            return basis(self.order, i, x) * ctrl
+
+        return sum(map(lambda enum: calc_ctrl(enum[0], enum[1]), enumerate(self.ctrls)))
 
     def calc_d(self, x):
-        order = len(self.ctrls) - 1
-        return sum(
-            map(
-                lambda power: basis(order - 1, power, x)
+        order = self.order
+
+        def calc_power(power):
+            return (
+                basis(order - 1, power, x)
                 * order
-                * (self.ctrls[power + 1] - self.ctrls[power]),
-                range(order),
+                * (self.ctrls[power + 1] - self.ctrls[power])
             )
-        )
+
+        return sum(map(calc_power, range(order)))
 
     def calc_d_2(self, x):
         order = len(self.ctrls) - 1
-        return sum(
-            map(
-                lambda power: basis(order - 2, power, x)
+
+        def calc_power(power):
+            return (
+                basis(order - 2, power, x)
                 * order
                 * (order - 1)
                 * (
                     self.ctrls[power + 2]
                     - 2 * self.ctrls[power + 1]
                     + self.ctrls[power]
-                ),
-                range(order - 1),
+                )
             )
-        )
+
+        return sum(map(calc_power, range(order - 1)))
 
 
 def basis(n, k, x):
