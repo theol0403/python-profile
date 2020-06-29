@@ -1,5 +1,6 @@
 from .parametric import Parametric
 import numpy as np
+import math
 
 
 # a function is a one-dimensional calculation that maps x to y
@@ -60,10 +61,7 @@ def basis(n, k, x):
 
 
 def comb(n, k):
-    res = 1
-    for i in range(k):
-        res = (res * (n - i)) / (i + 1)
-    return res
+    return math.factorial(n) / (math.factorial(k) * math.factorial(n - k))
 
 
 # create a new parametric bezier using n control points
