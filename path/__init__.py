@@ -10,6 +10,12 @@ class Path:
     def curvature(self, t):
         pass
 
+    # the distance traveled per change in t
+    # the hypotenuse of the derivatives of the x and y functions
+    # ds/dt
+    def velocity(self, t):
+        return self.length()
+
     def interpolate(self, steps):
         return [self.calc(i / steps) for i in range(steps + 1)]
 
