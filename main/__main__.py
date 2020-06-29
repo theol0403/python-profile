@@ -20,6 +20,7 @@ path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
 #         Point(0.0, 1.0),
 #     ]
 # )
+# path = new_hermite(QuinticHermite, Point(0, 0, 0), Point(1, 1, 0))
 
 # define bot
 bot = Bot(track=track, pose=path.calc(0))
