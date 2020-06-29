@@ -33,7 +33,9 @@ class Bot:
         )
 
     def max_lin_vel_at_angular_vel(self, angular_vel):
-        return self.max_vel - (self.max_vel * np.abs(angular_vel)) / self.max_ang_vel
+        return np.max(
+            [self.max_vel - (self.max_vel * np.abs(angular_vel)) / self.max_ang_vel, 0]
+        )
         # return self.max_vel * (1.0 - (np.abs(angular_vel) / self.max_ang_vel))
 
     # http://www.cs.columbia.edu/~allen/F15/NOTES/icckinematics.pdf
