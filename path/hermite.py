@@ -20,7 +20,7 @@ class Hermite(Function):
 
     def calc_d_2(self, x):
         def f(power, coeff):
-            return coeff * power * power * x ** (power - 2)
+            return coeff * power * (power - 1) * x ** (power - 2)
 
         it = enumerate(self.coeffs)
         next(it)
