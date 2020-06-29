@@ -23,12 +23,11 @@ plt.subplot(2, 3, 2)
 plt.title("Angle")
 
 a = [step.point.theta * 180 / np.pi for step in trajectory]
-plt.plot(time_range, a, label="Arc Angle")
+plt.plot(time_range, a)
 
 plt.xlabel("Time (s)")
 plt.ylabel("Degrees")
 plt.grid()
-plt.legend()
 
 # curvature
 plt.subplot(2, 3, 3)

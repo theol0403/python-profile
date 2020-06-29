@@ -14,7 +14,7 @@ def animate(i):
 
 
 animation.FuncAnimation(
-    plt.gcf(), animate, frames=len(x) + 50, interval=dt * 1000, blit=True
+    plt.gcf(), animate, frames=len(x) + int(0.5 / dt), interval=dt * 1000, blit=True
 )
 
 plt.grid()
