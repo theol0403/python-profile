@@ -1,4 +1,5 @@
-from path.functions import *
+from path.bezier import *
+from path.hermite import *
 from path.point import Point
 from generator.bot import Bot
 from generator.generator import generate

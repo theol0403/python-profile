@@ -1,6 +1,7 @@
 import itertools
 from path import Path
-from .functions import *
+from .bezier import new_bezier
+from .hermite import new_hermite
 
 
 # a piecewise contains an array of paths
@@ -21,6 +22,12 @@ class Piecewise(Path):
         x = t * c - i  # which t to use
         return self.arr[i].calc(x)
 
+    # create a piecewise bezier path from a 2 dimensional list of points
+    def new_bezier(segments):
+        path = Piecewise()
+        for controls in segments:
+            path.arr.append(new_bezier(controls))
+
     # create a piecewise hermite path from a list of points
     def new_hermite(hermite, points):
         path = Piecewise()
@@ -30,9 +37,3 @@ class Piecewise(Path):
         for i, p in it:
             path.arr.append(new_hermite(hermite, p, points[i + 1]))
         return path
-
-    # create a piecewise bezier path from a 2 dimensional list of points
-    def new_bezier(segments):
-        path = Piecewise()
-        for controls in segments:
-            path.arr.append(new_bezier(controls))

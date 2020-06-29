@@ -1,5 +1,6 @@
 from path.arc import *
-from path.functions import *
+from path.bezier import *
+from path.hermite import *
 import matplotlib.pyplot as plt
 from path.point import Point
 import matplotlib.animation as animation

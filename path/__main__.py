@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
-from .functions import *
+from .bezier import *
+from .hermite import *
 from .point import Point
 from .piecewise import *
 

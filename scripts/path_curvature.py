@@ -1,5 +1,5 @@
 from path.arc import *
-from path.functions import *
+from path.bezier import *
 import matplotlib.pyplot as plt
 from path.point import Point
 
