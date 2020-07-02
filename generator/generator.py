@@ -21,9 +21,10 @@ def generate(*, bot, path, dt):
     t = 0
     dist = 0
     pos = path.calc(t)
+    theta = pos.theta
     vel = profile.v_at_t(dt)
     while dist <= length and t <= 1.0:
-        p_vel = vel
+        p_vel = vel  # used for logging
         # limit velocity according to approximation of the curvature during the next timeslice
         curvature = path.curvature(t)
         vel_max = np.min([vel, bot.max_lin_vel_at_curvature(curvature)])
@@ -32,7 +33,9 @@ def generate(*, bot, path, dt):
         pos_new = path.calc(t_n)
 
         # find out how fast we need to turn to achieve change in theta to reach next point in dt
-        angular_vel = (pos_new.theta - pos.theta) / dt
+        angular_vel = (pos_new.theta - theta) / dt
+        # update internal theta representation
+        theta += angular_vel * dt
         # limit profiled velocity to angular velocity
         vel = np.min([vel, bot.max_lin_vel_at_angular_vel(angular_vel)])
 
@@ -46,7 +49,7 @@ def generate(*, bot, path, dt):
         trajectory.append(Step(pos, vel, angular_vel, curvature, p_vel))
 
         # update new position
-        pos = pos_new
+        pos = path.calc(t)
         # calculate new velocity
         vel = profile.v_at_d(dist)
 

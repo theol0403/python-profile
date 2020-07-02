@@ -12,7 +12,7 @@ diam = (4 * u.inch).to(u.meter).m
 weight = (20 * u.pounds).to(u.kilogram).m
 
 # path = new_bezier([Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0)])
-# path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
+path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
 # path = new_bezier(
 #     [
 #         Point(1.0, 0.0),
@@ -24,7 +24,9 @@ weight = (20 * u.pounds).to(u.kilogram).m
 # )
 # path = new_hermite(QuinticHermite, Point(0, 0, 0), Point(1, 1, 0))
 # path = Line(Point(0, 0), Point(1, 0))
-path = new_bezier([Point(0, 1), Point(0.851, 0), Point(0.5, 1)])
+# path = new_bezier([Point(0, 1), Point(0.851, 0), Point(0.5, 1)])
+# path = new_bezier([Point(0, 1), Point(2, 0), Point(0.5, 1)])
+
 
 # define bot
 bot = Bot(track=track, pose=path.calc(0))
