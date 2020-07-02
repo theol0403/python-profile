@@ -20,4 +20,5 @@ animation.FuncAnimation(
 plt.grid()
 plt.title("Trajectory Simulation")
 plt.gcf().set_tight_layout(True)
+plt.axis("equal")
 plt.show()
