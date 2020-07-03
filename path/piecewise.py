@@ -32,7 +32,6 @@ class Piecewise(Path):
             # use t = 1 for the last arc
             i = c - 1
         x = t * c - i  # which t to use
-        # return f(self.arr[i], x)
         return getattr(self.arr[i], f)(x)
 
     # create a piecewise bezier path from a 2 dimensional list of points
