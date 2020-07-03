@@ -3,10 +3,6 @@ from timeit import timeit
 
 
 def time_generate():
-    # path = new_bezier([Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0)])
-    path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
-    # path = new_hermite(CubicHermite, Point(0, 0, 0), Point(1, 1, 0))
-
     generate(bot=bot, path=path, dt=0.01)
 
 
