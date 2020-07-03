@@ -1,9 +1,9 @@
 from path.bezier import *
 from path.hermite import *
 from path.line import *
-from path.piecewise import Piecewise
 from path.arc import *
 from path.point import Point
+from path.piecewise import Piecewise
 from generator.bot import Bot
 from generator.generator import generate
 from pint import UnitRegistry
@@ -15,7 +15,6 @@ weight = (20 * u.pounds).to(u.kilogram).m
 
 # path = new_bezier([Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0)])
 path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
-path = fit_arcs(path, 50)
 # path = new_bezier(
 #     [
 #         Point(1.0, 0.0),
