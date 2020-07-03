@@ -16,7 +16,7 @@ class Piecewise(Path):
         return self.split(t, "curvature")
 
     def velocity(self, t):
-        return self.split(t, "velocity")
+        return self.split(t, "velocity") * len(self.arr)
 
     def interpolate(self, steps):
         return sum((p.interpolate(steps) for p in self.arr), start=[])
