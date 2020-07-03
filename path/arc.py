@@ -37,7 +37,7 @@ class Arc(Path):
 
         return Point(x_r, y_r, self.rotate + self.theta * t)
 
-    def curvature(self):
+    def curvature(self, t):
         if np.isinf(self.r):
             return 0
         else:

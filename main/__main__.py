@@ -2,6 +2,7 @@ from path.bezier import *
 from path.hermite import *
 from path.line import *
 from path.piecewise import Piecewise
+from path.arc import *
 from path.point import Point
 from generator.bot import Bot
 from generator.generator import generate
@@ -13,7 +14,8 @@ diam = (4 * u.inch).to(u.meter).m
 weight = (20 * u.pounds).to(u.kilogram).m
 
 # path = new_bezier([Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0)])
-# path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
+path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
+path = fit_arcs(path, 50)
 # path = new_bezier(
 #     [
 #         Point(1.0, 0.0),
@@ -27,9 +29,9 @@ weight = (20 * u.pounds).to(u.kilogram).m
 # path = Line(Point(0, 0), Point(1, 0))
 # path = new_bezier([Point(0, 1), Point(0.851, 0), Point(0.5, 1)])
 # path = new_bezier([Point(0, 1), Point(2, 0), Point(0.5, 1)])
-path = Piecewise.new_hermite(
-    CubicHermite, [Point(0, 0, np.pi / 2), Point(0.5, 1, 0), Point(1, 0, -np.pi / 2)]
-)
+# path = Piecewise.new_hermite(
+#     CubicHermite, [Point(0, 0, np.pi / 2), Point(0.5, 1, 0), Point(1, 0, -np.pi / 2)]
+# )
 
 
 # define bot
