@@ -9,10 +9,22 @@ class Piecewise(Path):
     def __init__(self):
         self.arr = []
 
+    def calc(self, t):
+        return self.split(t, "calc")
+
+    def curvature(self, t):
+        return self.split(t, "curvature")
+
+    def velocity(self, t):
+        return self.split(t, "velocity")
+
     def interpolate(self, steps):
         return sum((p.interpolate(steps) for p in self.arr), start=[])
 
-    def calc(self, t):
+    def length(self):
+        return sum(p.length() for p in self.arr)
+
+    def split(self, t, f):
         # split up t into arc_count sections
         c = len(self.arr)
         i = int(t * c)  # which arc to use
@@ -20,7 +32,8 @@ class Piecewise(Path):
             # use t = 1 for the last arc
             i = c - 1
         x = t * c - i  # which t to use
-        return self.arr[i].calc(x)
+        # return f(self.arr[i], x)
+        return getattr(self.arr[i], f)(x)
 
     # create a piecewise bezier path from a 2 dimensional list of points
     def new_bezier(segments):
