@@ -35,12 +35,14 @@ class Piecewise(Path):
         return getattr(self.arr[i], f)(x)
 
     # create a piecewise bezier path from a 2 dimensional list of points
+    @staticmethod
     def new_bezier(segments):
         path = Piecewise()
         for controls in segments:
             path.arr.append(new_bezier(controls))
 
     # create a piecewise hermite path from a list of points
+    @staticmethod
     def new_hermite(hermite, points):
         path = Piecewise()
         it = enumerate(points)
