@@ -7,13 +7,12 @@ y = [s.y for s in states]
 
 line = plt.gca().plot(x, y, lw=2)
 
-
 def animate(i):
     line[0].set_data(x[:i], y[:i])
     return line
 
 
-animation.FuncAnimation(
+anim = animation.FuncAnimation(
     plt.gcf(), animate, frames=len(x) + int(0.5 / dt), interval=dt * 1000, blit=True
 )
 
