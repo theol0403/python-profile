@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 bot = Bot(track=1, max_vel=2, max_accel=1)
-profile = Trapezoidal(bot, 3)
+profile = Trapezoidal(bot, 3, start_vel=0.5, end_vel=1)
 print(vars(profile))
 
 x = np.linspace(0, profile.length, 101)
@@ -22,7 +22,7 @@ while dist <= profile.length:
     vel = profile.v_at_d(dist)
     vels.append(vel)
     dist += vel * dt
-vels.append(0)
+# vels.append(profile.v_at_d(dist))
 
 final_dist = np.sum(np.array(vels) * dt)
 print(f"Final distance: {final_dist}")

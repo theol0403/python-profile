@@ -33,7 +33,7 @@ class Trapezoidal:
 
         # the distance to accelerate to max speed
         self.d_accel = start_vel * self.t_accel + 0.5 * accel * (self.t_accel ** 2)
-        self.d_decel = vel * self.t_decel - 0.5 * accel * (self.t_decel ** 2)
+        self.d_decel = end_vel * self.t_decel + 0.5 * accel * (self.t_decel ** 2)
 
         # the time to cruise
         self.t_cruise = self.d_cruise / self.top_vel
@@ -59,10 +59,12 @@ class Trapezoidal:
             )
 
     def v_at_d(self, d):
+        if d > self.length:
+            d = self.length
         if d <= self.d_accel:
             # acceleleration
-            return np.sqrt(2 * self.limits.max_accel * d)
-        elif d > self.d_accel and d < self.length - self.d_accel:
+            return np.sqrt(self.start_vel ** 2 + 2 * self.limits.max_accel * d)
+        elif d > self.d_accel and d < self.d_accel + self.d_cruise:
             # cruising
             return self.top_vel
         else:
