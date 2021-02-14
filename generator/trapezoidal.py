@@ -11,39 +11,35 @@ class Trapezoidal:
         accel = self.limits.max_accel
         vel = self.limits.max_vel
 
-        # the time it takes to accelerate to full speed
-        self.t_accel = (vel - start_vel) / accel
-        self.t_decel = (vel - end_vel) / accel
-        # the distance it could travel while accelerating
-        self.d_accel = start_vel * self.t_accel + 0.5 * accel * (self.t_accel ** 2)
-        self.d_decel = vel * self.t_decel - 0.5 * accel * (self.t_decel ** 2)
-        # the time spent cruising at full speed
-        self.t_cruise = (length - self.d_accel - self.d_decel) / vel
+        offset = (start_vel ** 2 + end_vel ** 2) / 2
+        # the distance spent cruising at full speed
+        self.d_cruise = length + (offset - vel ** 2) / accel
 
-        # if cruise time is negative, time needs to be shaved off the acceleration
-        if self.t_cruise < 0:
+        # if cruise distance is negative, time needs to be shaved off the acceleration
+        if self.d_cruise < 0:
             # this is a triangular profile
-            self.t_cruise = 0
+            self.d_cruise = 0
             # maximum attainable speed given time constraints (if triangular)
-            # self.top_vel = np.sqrt(length * accel)
-            self.top_vel = np.sqrt(accel * length + (start_vel ** 2 + end_vel ** 2) / 2)
-            # time to accelerate to max speed
-            self.t_accel = (self.top_vel - start_vel) / accel
-            self.t_decel = (self.top_vel - end_vel) / accel
-            if self.t_accel < 0 or self.t_decel < 0:
-                raise ("Bad")
+            self.top_vel = np.sqrt(accel * length + offset)
         else:
             # this is not a triangular profile
             self.top_vel = vel
 
-        # the time it takes to complete the profile
-        self.time = self.t_accel + self.t_decel + self.t_cruise
+        # time to accelerate to max speed
+        self.t_accel = (self.top_vel - start_vel) / accel
+        self.t_decel = (self.top_vel - end_vel) / accel
+        if self.t_accel < 0 or self.t_decel < 0:
+            raise "Impossible deceleration constraints"
 
-        # the distance to accelerate to full speed
+        # the distance to accelerate to max speed
         self.d_accel = start_vel * self.t_accel + 0.5 * accel * (self.t_accel ** 2)
         self.d_decel = vel * self.t_decel - 0.5 * accel * (self.t_decel ** 2)
-        # the distance to cruise
-        self.d_cruise = self.top_vel * self.t_cruise
+
+        # the time to cruise
+        self.t_cruise = self.d_cruise / self.top_vel
+
+        # the time it takes to complete the profile
+        self.time = self.t_accel + self.t_decel + self.t_cruise
 
     def v_at_t(self, t):
         # prevent decel below 0
