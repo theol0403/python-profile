@@ -22,9 +22,9 @@ def generate(*, bot, path, dt, **kwargs):
     dist = 0
     pos = path.calc(t)
     theta = pos.theta
-    vel = profile.v_at_t(t)
+    vel = profile.v_at_t(0)
     if vel == 0:
-        vel = profile.v_at_t(t + dt)
+        vel = profile.v_at_t(dt)
     while dist <= length and t <= 1.0:
         p_vel = vel  # used for logging
         # limit velocity according to approximation of the curvature during the next timeslice

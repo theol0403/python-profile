@@ -26,6 +26,9 @@ class Path:
             s += self.calc(t).dist(self.calc(t + res))
         return s
 
+    #    def length(self):
+    #        return fit_arcs(self, 500).length()
+
     def t_at_dist_travelled(self, t, dist):
         return t + dist / np.abs(self.velocity(t))
 
