@@ -51,26 +51,13 @@ class QuinticHermite(Hermite):
 
 
 # create a new parametric hermite
-def new_hermite(hermite, start, end):
-    x_start_t = np.cos(start.theta)
-    y_start_t = np.sin(start.theta)
+def new_hermite(hermite, start, end, stretch=1.41):
+    hypot = start.dist(end)
+    x_start_t = np.cos(start.theta) * hypot * stretch
+    y_start_t = np.sin(start.theta) * hypot * stretch
 
-    x_end_t = np.cos(end.theta)
-    y_end_t = np.sin(end.theta)
-
-    return Parametric(
-        hermite(start.x, x_start_t, end.x, x_end_t),
-        hermite(start.y, y_start_t, end.y, y_end_t),
-    )
-
-
-# create a new parametric hermite with tangent stretch
-def new_hermite_t(hermite, start, end, stretch):
-    x_start_t = np.cos(start.theta) * stretch
-    y_start_t = np.sin(start.theta) * stretch
-
-    x_end_t = np.cos(end.theta)
-    y_end_t = np.sin(end.theta)
+    x_end_t = np.cos(end.theta) * hypot * stretch
+    y_end_t = np.sin(end.theta) * hypot * stretch
 
     return Parametric(
         hermite(start.x, x_start_t, end.x, x_end_t),
