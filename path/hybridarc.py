@@ -1,6 +1,4 @@
-import numpy as np
-from path import Path
-from .point import Point
+from .arc import *
 
 
 class HybridArc(Path):
@@ -37,6 +35,21 @@ class HybridArc(Path):
         y_comb = (1-t)*y_global_1+t*y_global_2
         
         return Point(x_comb, y_comb)
+    
+class HybridArc2(Path):
+    def __init__(self, start, end):
+        theta_end = (2*start.angle_to(end))-start.theta
+        self.start = Arc(start, Point(end.x, end.y,theta_end))
+        theta_start = 2*start.angle_to(end)-end.theta
+        self.end = Arc(Point(start.x, start.y, theta_start), end)
+
+    def calc(self, t):
+        start=self.start.calc(t)
+        end=self.end.calc(t)
+        
+        comb = start*(1-t) + end*t
+        
+        return comb
 
 
     # def curvature(self, t):
