@@ -10,8 +10,7 @@ from pint import UnitRegistry
 
 u = UnitRegistry()
 track = (11 * u.inch).to(u.meter).m
-diam = (4 * u.inch).to(u.meter).m
-weight = (20 * u.pounds).to(u.kilogram).m
+diam = (3.25 * u.inch).to(u.meter).m
 
 # path = new_bezier([Point(0, 0), Point(0, 1), Point(1, 1), Point(1, 0)])
 path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
@@ -35,11 +34,11 @@ path = new_bezier([Point(0, 0), Point(1, 0), Point(0, 1), Point(1, 1)])
 
 # define bot
 bot = Bot(track=track, pose=path.calc(0))
-bot.set_theoretical_maxes(weight, 200, diam, 4)
+bot.set_theoretical_maxes(0.6, 200, diam)
 
 # generate the profile
 trajectory, profile, length, dt, wheel_speeds = generate(
-    bot=bot, path=path, dt=0.01, start_vel=1, end_vel=1
+    bot=bot, path=path, dt=0.01, start_vel=0, end_vel=0
 )
 
 # run the bot through all the steps
