@@ -9,8 +9,8 @@ class HybridArc(Path):
         self.arc_end = Arc(Point(start.x, start.y, theta_start), end)
 
     def calc(self, t):
-        point_start = self.start.calc(t)
-        point_end = self.end.calc(t)
+        point_start = self.arc_start.calc(t)
+        point_end = self.arc_end.calc(t)
         comb = point_start*(1-t) + point_end*t
         return comb
 

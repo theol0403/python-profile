@@ -21,7 +21,7 @@ def generate(*, bot, path, dt, **kwargs):
     t = 0
     dist = 0
     pos = path.calc(t)
-    theta = pos.theta
+    # theta = pos.theta
     vel = profile.v_at_t(0)
     if vel == 0:
         vel = profile.v_at_t(dt)
@@ -35,9 +35,9 @@ def generate(*, bot, path, dt, **kwargs):
         pos_new = path.calc(t_n)
 
         # find out how fast we need to turn to achieve change in theta to reach next point in dt
-        angular_vel = (pos_new.theta - theta) / dt
+        angular_vel = (pos_new.theta - pos.theta) / dt
         # update internal theta representation
-        theta += angular_vel * dt
+        # theta += angular_vel * dt
         # limit profiled velocity to angular velocity
         vel = np.min([vel, bot.max_lin_vel_at_angular_vel(angular_vel)])
 
