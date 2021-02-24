@@ -39,6 +39,12 @@ class Point:
     def __div__(self, other):
         return Point(self.x / other, self.y / other, self.theta / other)
 
+    def __rmul__(self, other):
+        return Point(self.x * other, self.y * other, self.theta * other)
+
+    def __rdiv__(self, other):
+        return Point(other / self.x, other / self.y, other / self.theta)
+
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y and self.theta == other.theta
 

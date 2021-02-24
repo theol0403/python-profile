@@ -67,11 +67,11 @@ class Arc(Path):
 
         return Point(x_r, y_r, self.rotate + self.theta * t)
 
-    # def curvature(self, t):
-    #     if np.isinf(self.r):
-    #         return 0
-    #     else:
-    #         return 1.0 / self.r
+    def curvature(self, t):
+        if np.isinf(self.r):
+            return 0
+        else:
+            return 1.0 / self.r
 
     def length(self):
         return self.s
@@ -86,12 +86,12 @@ class Arc(Path):
         d = self.calc_d(t)
         return np.sqrt(d.x ** 2 + d.y ** 2)
 
-    def curvature(self, t):
-        x_d = self.calc_d(t).x
-        y_d = self.calc_d(t).y
-        x_d_2 = self.calc_d_2(t).x
-        y_d_2 = self.calc_d_2(t).y
-        return (x_d * y_d_2 - y_d * x_d_2) / np.sqrt(x_d ** 2 + y_d ** 2) ** 3
+    # def curvature(self, t):
+    #     x_d = self.calc_d(t).x
+    #     y_d = self.calc_d(t).y
+    #     x_d_2 = self.calc_d_2(t).x
+    #     y_d_2 = self.calc_d_2(t).y
+    #     return (x_d * y_d_2 - y_d * x_d_2) / np.sqrt(x_d ** 2 + y_d ** 2) ** 3
 
 
 def fit_arcs(path, num):
