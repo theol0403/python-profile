@@ -19,10 +19,10 @@ print(f"Velocity: { arc.velocity(0.4)}")
 print(f"Curv: { arc.curvature(0.6)}")
 print(f"CCurv: { 1.0 / arc.r}")
 
-# theta_end = (2 * start.angle_to(end)) - start.theta
-# Arc(start, Point(end.x, end.y, theta_end)).plot("")
-# theta_start = 2 * start.angle_to(end) - end.theta
-# Arc(Point(start.x, start.y, theta_start), end).plot("")
+theta_end = (2 * start.angle_to(end)) - start.theta
+Arc(start, Point(end.x, end.y, theta_end)).plot("")
+theta_start = 2 * start.angle_to(end) - end.theta
+Arc(Point(start.x, start.y, theta_start), end).plot("")
 
 
 plt.tight_layout()

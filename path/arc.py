@@ -50,7 +50,7 @@ class Arc(Path):
         x_r = x * np.cos(theta) - y * np.sin(theta)
         y_r = y * np.cos(theta) + x * np.sin(theta)
 
-        return Point(x_r, y_r, self.rotate + self.theta * t)
+        return Point(x_r, y_r)
 
     def calc_d_2(self, t):
         x, y = 0, 0
@@ -65,7 +65,7 @@ class Arc(Path):
         x_r = x * np.cos(theta) - y * np.sin(theta)
         y_r = y * np.cos(theta) + x * np.sin(theta)
 
-        return Point(x_r, y_r, self.rotate + self.theta * t)
+        return Point(x_r, y_r)
 
     def curvature(self, t):
         if np.isinf(self.r):

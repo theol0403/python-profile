@@ -19,7 +19,7 @@ class HybridArc(Path):
         point_end = self.arc_end.calc(t)
         d_start = self.arc_start.calc_d(t)
         d_end = self.arc_end.calc_d(t)
-        comb = d_start * (1 - t) - point_start + d_end * t + point_end
+        comb = t * d_start - d_start + point_start + t * d_end + point_end
         return comb
 
     def calc_d_2(self, t):
@@ -27,7 +27,7 @@ class HybridArc(Path):
         d2_start = self.arc_start.calc_d_2(t)
         d_end = self.arc_end.calc_d(t)
         d2_end = self.arc_end.calc_d_2(t)
-        comb = d2_start * (1 - t) - d_start - d_start + d2_end * t + d_end + d_end
+        comb = t * d2_start - d2_start + 2 * d_start + t * d2_end + 2 * d_end
         return comb
 
     def velocity(self, t):
