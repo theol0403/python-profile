@@ -28,18 +28,21 @@ def generate(*, bot, path, dt, **kwargs):
     while dist <= length and t <= 1.0:
         p_vel = vel  # used for logging
         # limit velocity according to approximation of the curvature during the next timeslice
-        curvature = path.curvature(t)
-        vel_max = np.min([vel, bot.max_lin_vel_at_curvature(curvature)])
-        # project where along the path we will be after dt, given approximate velocity
-        t_n = path.t_at_dist_travelled(t, vel_max * dt)
-        pos_new = path.calc(t_n)
+        # curvature = path.curvature(t)
+        # vel_max = np.min([vel, bot.max_lin_vel_at_curvature(curvature)])
+        # # project where along the path we will be after dt, given approximate velocity
+        # t_n = path.t_at_dist_travelled(t, vel_max * dt)
+        # pos_new = path.calc(t_n)
 
-        # find out how fast we need to turn to achieve change in theta to reach next point in dt
-        angular_vel = (pos_new.theta - pos.theta) / dt
+        # # find out how fast we need to turn to achieve change in theta to reach next point in dt
+        # angular_vel = (pos_new.theta - pos.theta) / dt
         # update internal theta representation
         # theta += angular_vel * dt
         # limit profiled velocity to angular velocity
-        vel = np.min([vel, bot.max_lin_vel_at_angular_vel(angular_vel)])
+        # vel = np.min([vel, bot.max_lin_vel_at_angular_vel(angular_vel)])
+        curvature = path.curvature(t)
+        vel = np.min([vel, bot.max_lin_vel_at_curvature(curvature)])
+        angular_vel = curvature * vel
 
         # calculate distance traveled
         d_dist = vel * dt
