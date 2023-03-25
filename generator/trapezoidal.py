@@ -2,14 +2,14 @@ import numpy as np
 
 
 class Trapezoidal:
-    def __init__(self, limits, length, *, start_vel=0, end_vel=0):
+    def __init__(self, limits, length, *, start_vel=0, end_vel=0, top_vel=1):
         self.limits = limits
         self.length = length
-        self.start_vel = start_vel
-        self.end_vel = end_vel
+        self.start_vel = start_vel * limits.max_vel
+        self.end_vel = end_vel * limits.max_vel
 
         accel = self.limits.max_accel
-        vel = self.limits.max_vel
+        vel = self.limits.max_vel * top_vel
 
         offset = (start_vel ** 2 + end_vel ** 2) / 2
         # the distance spent cruising at full speed
